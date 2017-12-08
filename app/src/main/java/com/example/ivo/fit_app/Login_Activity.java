@@ -29,5 +29,13 @@ public class Login_Activity extends AppCompatActivity {
                 Login_Activity.this.startActivity(register_intent);
             }
         });
+
+        bLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent register_intent = new Intent(Login_Activity.this, User_area_1.class);
+                Login_Activity.this.startActivity(register_intent);
+            }
+        });
     }
 }
