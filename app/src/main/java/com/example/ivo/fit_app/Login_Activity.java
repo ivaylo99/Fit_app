@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class Login_Activity extends AppCompatActivity {
 
     @Override
@@ -33,7 +31,7 @@ public class Login_Activity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent register_intent = new Intent(Login_Activity.this, User_area_1.class);
+                Intent register_intent = new Intent(Login_Activity.this, User_Area_Activity1.class);
                 Login_Activity.this.startActivity(register_intent);
             }
         });

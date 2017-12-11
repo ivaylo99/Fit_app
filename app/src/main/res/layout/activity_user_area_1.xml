@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ivo.fit_app.User_area_1"
+    tools:context="com.example.ivo.fit_app.User_Area_Activity1"
     android:id="@+id/drawerlayout">
 
 
