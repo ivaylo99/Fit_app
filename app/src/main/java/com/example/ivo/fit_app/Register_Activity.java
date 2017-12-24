@@ -58,8 +58,8 @@ public class Register_Activity extends AppCompatActivity {
     }
 
     public void onSignupSucces() {
-                Intent login_intent = new Intent(Register_Activity.this, User_Area_Activity.class);
-                Register_Activity.this.startActivity(login_intent);
+                Intent register_intent = new Intent(Register_Activity.this, User_Info_Activity.class);
+                Register_Activity.this.startActivity(register_intent);
     }
 
     public boolean validate() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ivo.fit_app.User_Area_Activity1"
+    tools:context="com.example.ivo.fit_app.User_Area_Activity"
     android:id="@+id/drawerlayout">
 
 
@@ -13,10 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/navigation_action"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView6"

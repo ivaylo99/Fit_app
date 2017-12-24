@@ -7,9 +7,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
-public class User_Area_Activity1 extends AppCompatActivity {
+public class Progress_Activity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -18,7 +17,7 @@ public class User_Area_Activity1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_area_1);
+        setContentView(R.layout.activity_progress_);
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
@@ -35,8 +34,21 @@ public class User_Area_Activity1 extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem){
                 switch (menuItem.getItemId()){
                     case(R.id.nav_account):
-                        Intent accountActivity = new Intent(getApplicationContext(), Login_Activity.class);
+                        Intent accountActivity = new Intent(Progress_Activity.this, Login_Activity.class);
                         startActivity(accountActivity);
+                        break;
+                    case(R.id.nav_settings):
+                        Intent settingsActivity = new Intent(Progress_Activity.this, Settings_Activity.class);
+                        startActivity(settingsActivity);
+                        break;
+                    case(R.id.nav_progress):
+                        Intent progressActivity = new Intent(Progress_Activity.this, Progress_Activity.class);
+                        startActivity(progressActivity);
+                        break;
+                    case(R.id.nav_eat):
+                        Intent eatActivity = new Intent(Progress_Activity.this, What_To_Eat_Activity.class);
+                        startActivity(eatActivity);
+                        break;
                 }
                 return true;
             }
