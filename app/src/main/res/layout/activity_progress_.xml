@@ -8,7 +8,7 @@
     android:id="@+id/drawerlayout">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -19,10 +19,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Progress"
+            android:text="@string/progress"
             android:textAlignment="center"
             android:textSize="24sp" />
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="28dp"
+            android:minHeight="300dp"
+            android:minWidth="300dp"
+            app:srcCompat="@android:drawable/alert_dark_frame" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="69dp"
+            android:onClick="launchCamera"
+            android:text="Take Picture" />
+
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_menu"

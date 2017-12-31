@@ -49,6 +49,10 @@ public class What_To_Eat_Activity extends AppCompatActivity {
                         Intent eatActivity = new Intent(What_To_Eat_Activity.this, What_To_Eat_Activity.class);
                         startActivity(eatActivity);
                         break;
+                    case(R.id.nav_logout):
+                        Intent logoutActivity = new Intent(What_To_Eat_Activity.this, Login_Activity.class);
+                        startActivity(logoutActivity);
+                        break;
 
                 }
                 return true;

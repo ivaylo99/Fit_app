@@ -48,6 +48,11 @@ public class User_Area_Activity extends AppCompatActivity {
                     case(R.id.nav_eat):
                         Intent eatActivity = new Intent(User_Area_Activity.this, What_To_Eat_Activity.class);
                         startActivity(eatActivity);
+                        break;
+                    case(R.id.nav_logout):
+                        Intent logoutActivity = new Intent(User_Area_Activity.this, Login_Activity.class);
+                        startActivity(logoutActivity);
+                        break;
                 }
                 return true;
             }
