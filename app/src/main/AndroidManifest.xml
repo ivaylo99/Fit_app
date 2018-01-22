@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.hardware.camera2.full" />
 
@@ -34,6 +34,19 @@
         <activity android:name=".Progress_Activity" />
         <activity android:name=".What_To_Eat_Activity" />
         <activity android:name=".User_Info_Activity2" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.vysh.fullsizeimage.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".User_Area_Activity4" />
+        <activity android:name=".User_Area_Activity5"></activity>
     </application>
 
 </manifest>

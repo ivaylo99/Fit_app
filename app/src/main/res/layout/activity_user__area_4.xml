@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ivo.fit_app.Progress_Activity"
+    tools:context="com.example.ivo.fit_app.User_Area_Activity4"
     android:id="@+id/drawerlayout">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -19,31 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/progress"
+            android:text="4 Meal"
             android:textAlignment="center"
             android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="28dp"
-            android:minHeight="300dp"
-            android:minWidth="300dp"
-            app:srcCompat="@android:drawable/alert_dark_frame" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="69dp"
-            android:text="Take Picture" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_menu"

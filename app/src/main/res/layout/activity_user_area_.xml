@@ -15,11 +15,11 @@
 
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tv5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Main page"
+            android:text="1 Meal"
             android:textAlignment="center"
             android:textSize="24sp" />
     </LinearLayout>
