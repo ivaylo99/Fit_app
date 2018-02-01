@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="visible"
-    tools:context="com.example.ivo.fit_app.User_Info_Activity">
+    tools:context="com.example.ivo.fit_app.User_Info_Activity"
+    android:background="@drawable/background4">
 
     <ScrollView
         android:layout_width="0dp"
@@ -19,10 +20,10 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:weightSum="1"
             tools:layout_editor_absoluteX="8dp"
@@ -55,11 +56,10 @@
                 android:id="@+id/spinner1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/select_here"
-                app:met_floatingLabel="normal"
-                android:textColorHint="#CFD8DC"
                 android:gravity="center"
-                />
+                android:hint="@string/select_here"
+                android:textColorHint="#CFD8DC"
+                app:met_floatingLabel="normal" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -84,11 +84,10 @@
                 android:id="@+id/spinner2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/select_here"
-                app:met_floatingLabel="normal"
-                android:textColorHint="#CFD8DC"
                 android:gravity="center"
-                />
+                android:hint="@string/select_here"
+                android:textColorHint="#CFD8DC"
+                app:met_floatingLabel="normal" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -110,11 +109,10 @@
                 android:id="@+id/spinner3"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/select_here"
-                app:met_floatingLabel="normal"
-                android:textColorHint="#CFD8DC"
                 android:gravity="center"
-                />
+                android:hint="@string/select_here"
+                android:textColorHint="#CFD8DC"
+                app:met_floatingLabel="normal" />
 
             <TextView
                 android:id="@+id/textView"
@@ -139,11 +137,10 @@
                 android:id="@+id/spinner4"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/select_here"
-                app:met_floatingLabel="normal"
-                android:textColorHint="#CFD8DC"
                 android:gravity="center"
-                />
+                android:hint="@string/select_here"
+                android:textColorHint="#CFD8DC"
+                app:met_floatingLabel="normal" />
 
 
             <TextView
@@ -169,11 +166,10 @@
                 android:id="@+id/spinner5"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/select_here"
-                app:met_floatingLabel="normal"
-                android:textColorHint="#CFD8DC"
                 android:gravity="center"
-                />
+                android:hint="@string/select_here"
+                android:textColorHint="#CFD8DC"
+                app:met_floatingLabel="normal" />
 
 
             <TextView
@@ -199,11 +195,10 @@
                 android:id="@+id/spinner6"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/select_here"
-                app:met_floatingLabel="normal"
-                android:textColorHint="#CFD8DC"
                 android:gravity="center"
-                />
+                android:hint="@string/select_here"
+                android:textColorHint="#CFD8DC"
+                app:met_floatingLabel="normal" />
 
 
             <TextView
@@ -229,11 +224,10 @@
                 android:id="@+id/spinner7"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/select_here"
-                app:met_floatingLabel="normal"
-                android:textColorHint="#CFD8DC"
                 android:gravity="center"
-                />
+                android:hint="@string/select_here"
+                android:textColorHint="#CFD8DC"
+                app:met_floatingLabel="normal" />
 
             <Button
                 android:id="@+id/button"

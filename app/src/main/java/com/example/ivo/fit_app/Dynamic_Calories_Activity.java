@@ -77,7 +77,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+               timeStamp = new SimpleDateFormat("yyyyMMdd").format(new Date());
                 String kilograms = etKg.getText().toString().trim();
                 tvDynamic.setText(timeStamp);
             }
