@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import java.util.Set;
-
 public class User_Area_Activity5 extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
@@ -48,7 +46,7 @@ public class User_Area_Activity5 extends AppCompatActivity {
                         startActivity(progressActivity);
                         break;
                     case(R.id.nav_eat):
-                        Intent eatActivity = new Intent(User_Area_Activity5.this, What_To_Eat_Activity.class);
+                        Intent eatActivity = new Intent(User_Area_Activity5.this, Dynamic_Calories_Activity.class);
                         startActivity(eatActivity);
                         break;
                     case(R.id.nav_logout):

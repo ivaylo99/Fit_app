@@ -33,7 +33,7 @@ public class Progress_Activity  extends Activity {
     private static final String IMAGEVIEW_VISIBILITY_STORAGE_KEY = "imageviewvisibility";
     private ImageView mImageView;
     private Bitmap mImageBitmap;
-
+    private Button btnIntend1;
     private String mCurrentPhotoPath;
 
     private static final String JPEG_FILE_PREFIX = "IMG_";
@@ -187,7 +187,14 @@ public class Progress_Activity  extends Activity {
         mImageView = (ImageView) findViewById(R.id.imageView1);
         mImageBitmap = null;
 
-
+        btnIntend1 = (Button) findViewById(R.id.btnIntend1);
+        btnIntend1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Progress_Activity.this, Pictures_Activity.class);
+                Progress_Activity.this.startActivity(intent);
+            }
+        });
         Button picBtn = (Button) findViewById(R.id.btnIntend);
         setBtnListenerOrDisable(
                 picBtn,

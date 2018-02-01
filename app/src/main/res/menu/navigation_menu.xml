@@ -9,7 +9,7 @@
         android:title="See progress" />
     <item android:id="@+id/nav_eat"
         android:icon="@mipmap/ic_account_box_black_24dp"
-        android:title="What to eat"/>
+        android:title="Dynamic Calories"/>
     <item android:id="@+id/nav_settings"
         android:icon="@mipmap/ic_settings_black_24dp"
         android:title="Settings" />

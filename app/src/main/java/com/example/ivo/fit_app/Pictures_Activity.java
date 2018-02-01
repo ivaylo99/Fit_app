@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class User_Area_Activity4 extends AppCompatActivity {
+public class Pictures_Activity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -17,7 +17,7 @@ public class User_Area_Activity4 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user__area_4);
+        setContentView(R.layout.activity_pictures_);
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
@@ -34,23 +34,23 @@ public class User_Area_Activity4 extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem){
                 switch (menuItem.getItemId()){
                     case(R.id.nav_account):
-                        Intent accountActivity = new Intent(User_Area_Activity4.this, Login_Activity.class);
+                        Intent accountActivity = new Intent(Pictures_Activity.this, Login_Activity.class);
                         startActivity(accountActivity);
                         break;
                     case(R.id.nav_settings):
-                        Intent settingsActivity = new Intent(User_Area_Activity4.this, Settings_Activity.class);
+                        Intent settingsActivity = new Intent(Pictures_Activity.this, Settings_Activity.class);
                         startActivity(settingsActivity);
                         break;
                     case(R.id.nav_progress):
-                        Intent progressActivity = new Intent(User_Area_Activity4.this, Progress_Activity.class);
+                        Intent progressActivity = new Intent(Pictures_Activity.this, Progress_Activity.class);
                         startActivity(progressActivity);
                         break;
                     case(R.id.nav_eat):
-                        Intent eatActivity = new Intent(User_Area_Activity4.this, Dynamic_Calories_Activity.class);
+                        Intent eatActivity = new Intent(Pictures_Activity.this, Dynamic_Calories_Activity.class);
                         startActivity(eatActivity);
                         break;
                     case(R.id.nav_logout):
-                        Intent logoutActivity = new Intent(User_Area_Activity4.this, Login_Activity.class);
+                        Intent logoutActivity = new Intent(Pictures_Activity.this, Login_Activity.class);
                         startActivity(logoutActivity);
                         break;
 

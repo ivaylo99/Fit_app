@@ -24,7 +24,6 @@ public class User_Info_Activity extends AppCompatActivity {
     String[] s7 = new String[]{"130 CM", "131 CM", "132 CM", "133 CM", "134 CM", "135 CM", "136 CM", "137 CM", "138 CM", "139 CM", "140 CM", "141 CM", "142 CM", "143 CM", "144 CM", "145 CM", "146 CM", "147 CM", "148 CM", "149 CM", "150 CM", "151 CM", "152 CM", "153 CM", "154 CM", "155 CM", "156 CM", "157 CM", "158 CM", "159 CM", "160 CM", "161 CM", "162 CM", "163 CM", "164 CM", "165 CM", "166 CM", "167 CM", "168 CM", "169 CM", "170 CM", "171 CM", "172 CM", "173 CM", "174 CM", "175 CM", "176 CM", "177 CM", "178 CM", "179 CM", "180 CM", "181 CM", "182 CM", "183 CM", "184 CM", "185 CM", "186 CM", "187 CM", "188 CM", "189 CM", "190 CM", "191 CM", "192 CM", "193 CM", "194 CM", "195 CM", "196 CM", "197 CM", "198 CM", "199 CM", "200 CM", "201 CM", "202 CM", "203 CM", "204 CM", "205 CM", "206 CM", "207 CM", "208 CM", "209 CM", "210 CM", "211 CM", "212 CM", "213 CM", "214 CM", "215 CM"};
     Integer mealcount = 0;
 
-    ArrayAdapter<CharSequence> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

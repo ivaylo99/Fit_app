@@ -87,9 +87,10 @@
     <string name="select_here">Select Here</string>
     <string name="select_your_goal">Select your goal</string>
     <string name="select_activity_level">Select activity level</string>
-    <string name="album_name">CameraSample</string>
+    <string name="album_name">Fit_app</string>
     <string name="cannot">Cannot</string>
     <string name="btnIntend">Take Picture</string>
+    <string name="btnIntend1">See Pictures</string>
 
 
 </resources>

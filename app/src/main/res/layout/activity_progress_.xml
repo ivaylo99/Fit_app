@@ -4,14 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     tools:context="com.example.ivo.fit_app.Progress_Activity"
     android:id="@+id/drawerlayout">
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             >
+
+            <Button
+                android:id="@+id/btnIntend1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="465dp"
+                android:layout_weight="1"
+                android:elevation="0dp"
+                android:text="@string/btnIntend1" />
 
             <Button
                 android:id="@+id/btnIntend"
@@ -23,11 +32,12 @@
                 android:text="@string/btnIntend" />
 
         </LinearLayout>
-        <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:visibility="visible"
-            android:id="@+id/imageView1" />
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="visible"
+        android:id="@+id/imageView1" />
 
 
     <android.support.design.widget.NavigationView
