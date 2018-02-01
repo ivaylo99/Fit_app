@@ -1,208 +1,277 @@
 package com.example.ivo.fit_app;
 
-import android.Manifest;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.content.FileProvider;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import static android.os.Environment.getExternalStoragePublicDirectory;
+public class Progress_Activity  extends Activity {
 
-public class Progress_Activity extends AppCompatActivity {
+    private static final int ACTION_TAKE_PHOTO_B = 1;
 
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    ImageView img;
+    private static final String BITMAP_STORAGE_KEY = "viewbitmap";
+    private static final String IMAGEVIEW_VISIBILITY_STORAGE_KEY = "imageviewvisibility";
+    private ImageView mImageView;
+    private Bitmap mImageBitmap;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_progress_);
+    private String mCurrentPhotoPath;
 
-        Button button = (Button) findViewById(R.id.button);
-        img = (ImageView) findViewById(R.id.img);
+    private static final String JPEG_FILE_PREFIX = "IMG_";
+    private static final String JPEG_FILE_SUFFIX = ".jpg";
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+    private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
 
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
 
-        //disable btn if user has no camera
+    /* Photo album for this application */
+    private String getAlbumName() {
+        return getString(R.string.album_name);
+    }
 
-        if (!hasCamera()) {
-            button.setEnabled(false);
-        }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    private File getAlbumDir() {
+        File storageDir = null;
 
-        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case (R.id.nav_account):
-                        Intent accountActivity = new Intent(Progress_Activity.this, Login_Activity.class);
-                        startActivity(accountActivity);
-                        break;
-                    case (R.id.nav_settings):
-                        Intent settingsActivity = new Intent(Progress_Activity.this, Settings_Activity.class);
-                        startActivity(settingsActivity);
-                        break;
-                    case (R.id.nav_progress):
-                        Intent progressActivity = new Intent(Progress_Activity.this, Progress_Activity.class);
-                        startActivity(progressActivity);
-                        break;
-                    case (R.id.nav_eat):
-                        Intent eatActivity = new Intent(Progress_Activity.this, What_To_Eat_Activity.class);
-                        startActivity(eatActivity);
-                        break;
-                    case (R.id.nav_logout):
-                        Intent logoutActivity = new Intent(Progress_Activity.this, Login_Activity.class);
-                        startActivity(logoutActivity);
-                        break;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+
+            storageDir = mAlbumStorageDirFactory.getAlbumStorageDir(getAlbumName());
+
+            if (storageDir != null) {
+                if (! storageDir.mkdirs()) {
+                    if (! storageDir.exists()){
+                        Log.d("Fit_app", "failed to create directory");
+                        return null;
+                    }
                 }
-                return true;
             }
-        });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchCamera();
-            }
-        });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
+        } else {
+            Log.v(getString(R.string.app_name), "External storage is not mounted READ/WRITE.");
         }
 
-        return super.onOptionsItemSelected(item);
+        return storageDir;
     }
-
-    private boolean hasCamera() {
-        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
-    }
-
-    //launching the camera
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        File photoFile = null;
-        try {
-            photoFile = createImageFile();
-        } catch (IOException ex) {
-            // Error occurred while creating the File
-            Log.d("mylog", "Exception while creating file: " + ex.toString());
-        }
-        // Continue only if the File was successfully created
-        if (photoFile != null) {
-            Log.d("mylog", "Photofile not null");
-            Uri photoURI = FileProvider.getUriForFile(Progress_Activity.this,
-                    "com.vysh.fullsizeimage.fileprovider",
-                    photoFile);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-
 
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
+        File albumF = getAlbumDir();
+        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
+        return imageF;
+    }
+
+    private File setUpPhotoFile() throws IOException {
+
+        File f = createImageFile();
+        mCurrentPhotoPath = f.getAbsolutePath();
+
+        return f;
+    }
+
+    private void setPic() {
+
+		/* There isn't enough memory to open up more than a couple camera photos */
+		/* So pre-scale the target bitmap into which the file is decoded */
+
+		/* Get the size of the ImageView */
+        int targetW = mImageView.getWidth();
+        int targetH = mImageView.getHeight();
+
+		/* Get the size of the image */
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+		/* Figure out which way needs to be reduced less */
+        int scaleFactor = 1;
+        if ((targetW > 0) || (targetH > 0)) {
+            scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        }
+
+		/* Set bitmap options to scale the image decode target */
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+		/* Decode the JPEG file into a Bitmap */
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
+		/* Associate the Bitmap to the ImageView */
+        mImageView.setImageBitmap(bitmap);
+        mImageView.setVisibility(View.VISIBLE);
+
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
+    private void dispatchTakePictureIntent(int actionCode) {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        switch(actionCode) {
+            case ACTION_TAKE_PHOTO_B:
+                File f = null;
+
+                try {
+                    f = setUpPhotoFile();
+                    mCurrentPhotoPath = f.getAbsolutePath();
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    f = null;
+                    mCurrentPhotoPath = null;
+                }
+                break;
+
+            default:
+                break;
+        } // switch
+
+        startActivityForResult(takePictureIntent, actionCode);
+    }
+
+    private void handleBigCameraPhoto() {
+
+        if (mCurrentPhotoPath != null) {
+            setPic();
+            galleryAddPic();
+            mCurrentPhotoPath = null;
+        }
+
+    }
+
+    Button.OnClickListener mTakePicOnClickListener =
+            new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
+                }
+            };
+
+
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_progress_);
+
+        mImageView = (ImageView) findViewById(R.id.imageView1);
+        mImageBitmap = null;
+
+
+        Button picBtn = (Button) findViewById(R.id.btnIntend);
+        setBtnListenerOrDisable(
+                picBtn,
+                mTakePicOnClickListener,
+                MediaStore.ACTION_IMAGE_CAPTURE
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
 
-        return image;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
+        } else {
+            mAlbumStorageDirFactory = new BaseAlbumDirFactory();
+        }
     }
 
-    public void launchCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //take a picture and pass results along to onActivityResult
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-    }
-
-    //If you want to return the image taken
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            //Get the photo
-            Bundle extras = data.getExtras();
-            Bitmap photo = (Bitmap) extras.get("data");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
-            String currentTimeStamp = dateFormat.format(new Date());
-            createDirectoryAndSaveFile(photo,currentTimeStamp.toString());
-            img.setImageBitmap(photo);
-        }
+        switch (requestCode) {
+            case ACTION_TAKE_PHOTO_B: {
+                if (resultCode == RESULT_OK) {
+                    handleBigCameraPhoto();
+                }
+                break;
+            } // ACTION_TAKE_PHOTO_B
+        } // switch
     }
 
-    private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {
+    // Some lifecycle callbacks so that the image can survive orientation change
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(BITMAP_STORAGE_KEY, mImageBitmap);
 
+        outState.putBoolean(IMAGEVIEW_VISIBILITY_STORAGE_KEY, (mImageBitmap != null) );
 
-        File direct = new File(Environment.getExternalStorageDirectory() + "/Fit_app");
-
-        if (!direct.exists()) {
-            File wallpaperDirectory = new File("/sdcard/Fit_app/");
-            wallpaperDirectory.mkdirs();
-        }
-
-        File file = new File(new File("/sdcard/Fit_app/"), fileName);
-        if (file.exists()) {
-            file.delete();
-        }
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        super.onSaveInstanceState(outState);
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mImageBitmap = savedInstanceState.getParcelable(BITMAP_STORAGE_KEY);
+
+        mImageView.setImageBitmap(mImageBitmap);
+        mImageView.setVisibility(
+                savedInstanceState.getBoolean(IMAGEVIEW_VISIBILITY_STORAGE_KEY) ?
+                        ImageView.VISIBLE : ImageView.INVISIBLE
+        );
+
+    }
+
+    /**
+     * Indicates whether the specified action can be used as an intent. This
+     * method queries the package manager for installed packages that can
+     * respond to an intent with the specified action. If no suitable package is
+     * found, this method returns false.
+     * http://android-developers.blogspot.com/2009/01/can-i-use-this-intent.html
+     *
+     * @param context The application's environment.
+     * @param action The Intent action to check for availability.
+     *
+     * @return True if an Intent with the specified action can be sent and
+     *         responded to, false otherwise.
+     */
+    public static boolean isIntentAvailable(Context context, String action) {
+        final PackageManager packageManager = context.getPackageManager();
+        final Intent intent = new Intent(action);
+        List<ResolveInfo> list =
+                packageManager.queryIntentActivities(intent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+
+    private void setBtnListenerOrDisable(
+            Button btn,
+            Button.OnClickListener onClickListener,
+            String intentName
+    ) {
+        if (isIntentAvailable(this, intentName)) {
+            btn.setOnClickListener(onClickListener);
+        } else {
+            btn.setText(
+                    getText(R.string.cannot).toString() + " " + btn.getText());
+            btn.setClickable(false);
+        }
+    }
 
 }

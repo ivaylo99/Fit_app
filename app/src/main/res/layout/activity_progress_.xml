@@ -4,46 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context="com.example.ivo.fit_app.Progress_Activity"
     android:id="@+id/drawerlayout">
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/tv5"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/progress"
-            android:textAlignment="center"
-            android:textSize="24sp" />
+            >
 
+            <Button
+                android:id="@+id/btnIntend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="465dp"
+                android:layout_weight="1"
+                android:elevation="0dp"
+                android:text="@string/btnIntend" />
+
+        </LinearLayout>
         <ImageView
-            android:id="@+id/img"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="28dp"
-            android:minHeight="300dp"
-            android:minWidth="300dp"
-            app:srcCompat="@android:drawable/alert_dark_frame" />
-
-        <Button
-            android:id="@+id/button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="69dp"
-            android:text="Take Picture" />
+            android:visibility="visible"
+            android:id="@+id/imageView1" />
 
-    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_menu"

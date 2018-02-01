@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <paths>
-        <external-path name="my_images" fullpath="storage/emulated/0/Pictures/" />
-    </paths>
-</PreferenceScreen>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path name="my_images" path="Android/data/com.example.ivo.fit_app./files/Pictures" />
+</paths>
