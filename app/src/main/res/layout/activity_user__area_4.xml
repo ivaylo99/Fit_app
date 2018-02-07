@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.ivo.fit_app.User_Area_Activity4"
-    android:id="@+id/drawerlayout">
+    android:id="@+id/drawerlayout"
+    android:background="@drawable/background4">
 
 
     <ScrollView

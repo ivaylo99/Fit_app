@@ -10,6 +10,7 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textColorHighlight">@color/colorAccent</item>
 
+
     </style>
 
 </resources>

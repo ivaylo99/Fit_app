@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:visibility="visible"
     tools:context="com.example.ivo.fit_app.Login_Activity"
-    android:background="@drawable/background4">
+    android:background="@drawable/background4"
+    android:theme="@style/AppTheme">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/editText"
                 android:hint="Email"
+                android:textColor="@color/colorAccent"
                 android:inputType="textEmailAddress"
                 android:visibility="visible" />
         </android.support.design.widget.TextInputLayout>
@@ -69,7 +71,8 @@
             android:layout_marginTop="24dp"
             android:padding="12dp"
             android:text="Login"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:background="#4E535B"/>
 
         <TextView
             android:id="@+id/tvRegister"

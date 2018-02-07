@@ -70,3 +70,25 @@ public class Pictures_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+/* ArrayList<String> f = new ArrayList<String>();// list of file paths
+File[] listFile;
+
+public void getFromSdcard()
+{
+    File file= new File(android.os.Environment.getExternalStorageDirectory(),"TMyFolder");
+
+        if (file.isDirectory())
+        {
+            listFile = file.listFiles();
+
+
+            for (int i = 0; i < listFile.length; i++)
+            {
+
+                f.add(listFile[i].getAbsolutePath());
+
+            }
+        }
+}*/

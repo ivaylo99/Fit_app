@@ -10,6 +10,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 public class Register_Activity extends AppCompatActivity {
 
     private String email , name , username , password , repassword;
@@ -34,7 +48,53 @@ public class Register_Activity extends AppCompatActivity {
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register();
+             //   register();
+
+                User user = new User("asdsdvasilevgikurti","asadsdlfata@gmail.com","gsadsdolemecatedas");
+
+
+                final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                        .readTimeout(60, TimeUnit.SECONDS)
+                        .connectTimeout(60, TimeUnit.SECONDS)
+                        .build();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(UserClient.ENDPOINT)
+                        .client(okHttpClient)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                UserClient client = retrofit.create(UserClient.class);
+                Call<User> userCall = client.createUser(user);
+
+
+                userCall.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(Register_Activity.this, "server returned data", Toast.LENGTH_SHORT).show();
+                            // todo display the data instead of just a toast
+                        }
+                        else {
+                            Toast.makeText(Register_Activity.this, "Server returned an error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        if (t instanceof IOException) {
+                            Toast.makeText(Register_Activity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                            // logging probably not necessary
+                        }
+                        else {
+                            Toast.makeText(Register_Activity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                            // todo log to some central bug tracking service
+                        }
+                    }
+                });
+
+              //  sendNetworkRequest(user);
             }
         });
 
@@ -46,6 +106,18 @@ public class Register_Activity extends AppCompatActivity {
             }
         });
     }
+
+    private void sendNetworkRequest(User user) {
+
+       Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://10.0.2.2:8080")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    }
+
+
+
 
     public void register() {
         initialize();

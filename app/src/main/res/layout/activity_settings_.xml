@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.ivo.fit_app.Settings_Activity"
-    android:id="@+id/drawerlayout">
+    android:id="@+id/drawerlayout"
+    android:background="@drawable/background4">
 
 
     <LinearLayout
