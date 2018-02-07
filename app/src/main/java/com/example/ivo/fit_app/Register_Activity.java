@@ -13,6 +13,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -30,6 +31,7 @@ public class Register_Activity extends AppCompatActivity {
     private EditText etEmail , etName , etUsername , etPassword , etRePassword ;
     private TextView bLogin;
     Button bRegister;
+    Intent intent;
 
 
     @Override
@@ -48,10 +50,9 @@ public class Register_Activity extends AppCompatActivity {
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   register();
+                register();
 
-                User user = new User("asdsdvasilevgikurti","asadsdlfata@gmail.com","gsadsdolemecatedas");
-
+                User user = new User(etUsername.getText().toString(),etEmail.getText().toString(),etPassword.getText().toString());
 
                 final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                         .readTimeout(60, TimeUnit.SECONDS)
@@ -94,7 +95,6 @@ public class Register_Activity extends AppCompatActivity {
                     }
                 });
 
-              //  sendNetworkRequest(user);
             }
         });
 
@@ -106,17 +106,6 @@ public class Register_Activity extends AppCompatActivity {
             }
         });
     }
-
-    private void sendNetworkRequest(User user) {
-
-       Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    }
-
-
 
 
     public void register() {

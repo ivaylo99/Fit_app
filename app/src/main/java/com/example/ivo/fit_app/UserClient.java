@@ -18,7 +18,7 @@ import retrofit2.http.Path;
  */
 
 public interface UserClient {
-    
+
     String ENDPOINT = "http://192.168.1.100:8080/users/";
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
