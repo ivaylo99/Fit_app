@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class Settings_Activity extends AppCompatActivity {
@@ -14,10 +15,12 @@ public class Settings_Activity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_);
+         TextView txt = (TextView) findViewById(R.id.tv5);
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
@@ -58,7 +61,6 @@ public class Settings_Activity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     @Override
