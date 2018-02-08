@@ -80,10 +80,10 @@
     <string name="progress">Progress</string>
     <string name="tell_us_more_about_you">Tell us more about you</string>
     <string name="select_gender">Select gender</string>
-    <string name="select_your_height">Select your height</string>
+    <string name="select_your_height">Select your height(CM)</string>
     <string name="select_your_age">Select your age</string>
     <string name="select_meals_per_day">Select meals per day</string>
-    <string name="select_your_weight">Select your weight</string>
+    <string name="select_your_weight">Select your weight(KG)</string>
     <string name="select_here">Select Here</string>
     <string name="select_your_goal">Select your goal</string>
     <string name="select_activity_level">Select activity level</string>

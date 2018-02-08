@@ -27,11 +27,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Register_Activity extends AppCompatActivity {
 
-    private String email , name , username , password , repassword;
+    private String email , name , username , password , repassword, gender="male" , goal= "bulk";
     private EditText etEmail , etName , etUsername , etPassword , etRePassword ;
     private TextView bLogin;
     Button bRegister;
+    private Integer weight= 80, age= 25, height= 150, activity = 1;
     Intent intent;
+
 
 
     @Override
@@ -51,58 +53,13 @@ public class Register_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 register();
-
-                User user = new User(etUsername.getText().toString(),etEmail.getText().toString(),etPassword.getText().toString());
-
-                final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                        .readTimeout(60, TimeUnit.SECONDS)
-                        .connectTimeout(60, TimeUnit.SECONDS)
-                        .build();
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(UserClient.ENDPOINT)
-                        .client(okHttpClient)
-                        .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                UserClient client = retrofit.create(UserClient.class);
-                Call<User> userCall = client.createUser(user);
-
-
-                userCall.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(Register_Activity.this, "server returned data", Toast.LENGTH_SHORT).show();
-                            // todo display the data instead of just a toast
-                        }
-                        else {
-                            Toast.makeText(Register_Activity.this, "Server returned an error", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        if (t instanceof IOException) {
-                            Toast.makeText(Register_Activity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                            // logging probably not necessary
-                        }
-                        else {
-                            Toast.makeText(Register_Activity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                            // todo log to some central bug tracking service
-                        }
-                    }
-                });
-
             }
         });
 
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login_intent = new Intent(Register_Activity.this, Login_Activity.class);
-                Register_Activity.this.startActivity(login_intent);
+
             }
         });
     }
@@ -119,8 +76,17 @@ public class Register_Activity extends AppCompatActivity {
     }
 
     public void onSignupSucces() {
-                Intent register_intent = new Intent(Register_Activity.this, User_Info_Activity.class);
-                Register_Activity.this.startActivity(register_intent);
+        final String username = etUsername.getText().toString();
+        final String password = etPassword.getText().toString();
+        final String email = etEmail.getText().toString();
+
+        Intent intention = new Intent(Register_Activity.this,User_Info_Activity.class);
+
+        intention.putExtra("username", username);
+        intention.putExtra("password", password);
+        intention.putExtra("email", email);
+
+        Register_Activity.this.startActivity(intention);
     }
 
     public boolean validate() {
