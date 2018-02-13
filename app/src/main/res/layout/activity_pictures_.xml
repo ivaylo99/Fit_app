@@ -9,29 +9,35 @@
     android:background="@drawable/background4">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
 
-        <GridView
-            android:id="@+id/gridview"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:columnWidth="90dp"
-            android:numColumns="auto_fit"
-            android:stretchMode="columnWidth" />
-
-        <TextView
-            android:id="@+id/tv5"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnPicPrev"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Pictures"
-            android:textAlignment="center"
-            android:textSize="24sp" />
-    </LinearLayout>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Prev" />
+
+        <Button
+            android:id="@+id/btnPicNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="Next" />
+
+        <ImageSwitcher
+            android:id="@+id/imgSwitcher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/btnPicPrev" />
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_menu"

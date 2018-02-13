@@ -27,7 +27,7 @@
 
 
             <TextView
-                android:id="@+id/tv5"
+                android:id="@+id/tv4UA1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -36,35 +36,146 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/tv6"
+                android:id="@+id/tv4UA2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="vodka ruska   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="patki   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:text="MEAL 2"
                 android:textAlignment="center"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/tv7"
+                android:id="@+id/tv4UA6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:text="MEAL 3"
                 android:textAlignment="center"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/tv8"
+                android:id="@+id/tv4UA10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="150dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:text="MEAL 4"
                 android:textAlignment="center"
                 android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv4UA14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4UA16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="oats   100 grams"
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
         </LinearLayout>
 

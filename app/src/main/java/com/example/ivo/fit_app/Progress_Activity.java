@@ -184,10 +184,10 @@ public class Progress_Activity  extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress_);
 
-        mImageView = (ImageView) findViewById(R.id.imageView1);
+        mImageView = (ImageView) findViewById(R.id.imgViewPro);
         mImageBitmap = null;
 
-        btnIntend1 = (Button) findViewById(R.id.btnIntend1);
+        btnIntend1 = (Button) findViewById(R.id.btnPro1);
         btnIntend1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,7 +195,7 @@ public class Progress_Activity  extends Activity {
                 Progress_Activity.this.startActivity(intent);
             }
         });
-        Button picBtn = (Button) findViewById(R.id.btnIntend);
+        Button picBtn = (Button) findViewById(R.id.btnPro2);
         setBtnListenerOrDisable(
                 picBtn,
                 mTakePicOnClickListener,

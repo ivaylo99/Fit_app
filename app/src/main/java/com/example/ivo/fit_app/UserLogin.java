@@ -1,4 +1,7 @@
 package com.example.ivo.fit_app;
+/**
+ * Created by Ivo on 13.2.2018 г..
+ */
 
 import java.util.List;
 
@@ -13,15 +16,10 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
-/**
- * Created by Ivo on 2.2.2018 г..
- */
+public interface UserLogin {
 
-public interface UserClient {
+    String ENDPOINT = "http://192.168.1.100:8080";
 
-    String ENDPOINT = "http://192.168.1.100:8080/";
-
-    @Headers({"Accept: application/json", "Content-Type: application/json"})
-    @POST("users/sign-up")
-    Call<User> createUser(@Body User user);
+    @POST("/login")
+    Call<ResponseBody> getAuthorization(@Body Login login);
 }

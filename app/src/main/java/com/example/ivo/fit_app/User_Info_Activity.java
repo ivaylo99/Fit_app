@@ -171,8 +171,8 @@ public class User_Info_Activity extends AppCompatActivity {
                 User user = new User(bundle.getString("username"),bundle.getString("email"),bundle.getString("password"),gender,height,weight,age,activity,goal);
 
                 final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                        .readTimeout(60, TimeUnit.SECONDS)
-                        .connectTimeout(60, TimeUnit.SECONDS)
+                        .readTimeout(120, TimeUnit.SECONDS)
+                        .connectTimeout(120, TimeUnit.SECONDS)
                         .build();
 
                 Retrofit retrofit = new Retrofit.Builder()

@@ -21,12 +21,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/etName"
+
+            <EditText
+                android:id="@+id/etNameReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:hint="Name"
-                android:textColor="@color/colorAccent"/>
+                android:inputType="textPersonName"
+                android:textColor="@color/colorAccent" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -39,12 +41,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/etEmail"
+
+            <EditText
+                android:id="@+id/etEmailReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
                 android:hint="Email"
-                android:textColor="@color/colorAccent"/>
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorAccent" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -54,7 +58,7 @@
             android:layout_marginBottom="8dp">
 
             <EditText
-                android:id="@+id/etUsername"
+                android:id="@+id/etUsernameReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Username"
@@ -71,12 +75,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/etPassword"
+
+            <EditText
+                android:id="@+id/etPasswordReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:hint="Password"
-                android:textColor="@color/colorAccent"/>
+                android:inputType="textPassword"
+                android:textColor="@color/colorAccent" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Re-enter Label -->
@@ -85,32 +91,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/etRePassword"
+
+            <EditText
+                android:id="@+id/etRePasswordReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:hint="Re-enter Password"
-                android:textColor="@color/colorAccent"/>
+                android:inputType="textPassword"
+                android:textColor="@color/colorAccent" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/bRegister"
+            android:id="@+id/bRegisterReg"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:background="#4E535B"
             android:padding="12dp"
-            android:text="Create Account"
-            android:background="#4E535B"/>
+            android:text="Create Account" />
 
-        <TextView android:id="@+id/bLogin"
+        <TextView
+            android:id="@+id/bLoginReg"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Already a member? Login"
             android:gravity="center"
-            android:textSize="16dip"/>
+            android:text="Already a member? Login"
+            android:textSize="16dip" />
 
     </LinearLayout>
 </ScrollView>

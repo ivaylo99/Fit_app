@@ -10,28 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
-
 public class Register_Activity extends AppCompatActivity {
 
     private String email , name , username , password , repassword, gender="male" , goal= "bulk";
     private EditText etEmail , etName , etUsername , etPassword , etRePassword ;
     private TextView bLogin;
     Button bRegister;
-    private Integer weight= 80, age= 25, height= 150, activity = 1;
     Intent intent;
 
 
@@ -41,13 +25,13 @@ public class Register_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_);
 
-         etEmail = (EditText) findViewById(R.id.etEmail);
-         etName = (EditText) findViewById(R.id.etName);
-         etUsername = (EditText) findViewById(R.id.etUsername);
-         etPassword = (EditText) findViewById(R.id.etPassword);
-         etRePassword = (EditText) findViewById(R.id.etRePassword);
-         bRegister = (Button) findViewById(R.id.bRegister);
-         bLogin = (TextView) findViewById(R.id.bLogin);
+         etEmail = (EditText) findViewById(R.id.etEmailReg);
+         etName = (EditText) findViewById(R.id.etNameReg);
+         etUsername = (EditText) findViewById(R.id.etUsernameReg);
+         etPassword = (EditText) findViewById(R.id.etPasswordReg);
+         etRePassword = (EditText) findViewById(R.id.etRePasswordReg);
+         bRegister = (Button) findViewById(R.id.bRegisterReg);
+         bLogin = (TextView) findViewById(R.id.bLoginReg);
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,11 +16,11 @@
 
 
         <TextView
-            android:id="@+id/tv5"
+            android:id="@+id/tvSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textAlignment="center"
             android:textSize="24sp" />
     </LinearLayout>
