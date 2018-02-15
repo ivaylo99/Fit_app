@@ -30,6 +30,6 @@ public interface UserClient {
     Call<ResponseBody> getUserId(@Header("authorization") String token);
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
-    @POST("users/1/measurements")
-    Call<Measurments> addMeasurment(@Body Measurments weight,@Header("authorization") String token);
+    @POST("users/{id}/measurements")
+    Call<Measurments> addMeasurment(@Body Measurments weight,@Path("id") String id,@Header("authorization") String token);
 }
