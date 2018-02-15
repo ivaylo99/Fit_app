@@ -21,6 +21,9 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class Pictures_Activity extends AppCompatActivity {
 
 
@@ -28,7 +31,7 @@ public class Pictures_Activity extends AppCompatActivity {
     ImageSwitcher imgSwitcher;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    Integer images[] = {R.drawable.pic1,R.drawable.pic2,R.drawable.pic3,R.drawable.pic4};
+    Integer images[] = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
     int i = 0;
 
 
@@ -51,11 +54,11 @@ public class Pictures_Activity extends AppCompatActivity {
             }
         });
 
-        Animation fadein = new AlphaAnimation(0,1);
+        Animation fadein = new AlphaAnimation(0, 1);
         fadein.setInterpolator(new DecelerateInterpolator());
         fadein.setDuration(1000);
 
-        Animation fadeout = new AlphaAnimation(0,1);
+        Animation fadeout = new AlphaAnimation(0, 1);
         fadeout.setInterpolator(new AccelerateInterpolator());
         fadeout.setDuration(1000);
 
@@ -73,7 +76,7 @@ public class Pictures_Activity extends AppCompatActivity {
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(i > 0) {
+                if (i > 0) {
                     i--;
                     imgSwitcher.setImageResource(images[i]);
                 }
@@ -83,7 +86,7 @@ public class Pictures_Activity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(i < images.length - 1) {
+                if (i < images.length - 1) {
                     i++;
                     imgSwitcher.setImageResource(images[i]);
                 }
@@ -91,7 +94,7 @@ public class Pictures_Activity extends AppCompatActivity {
         });
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        mToggle = new ActionBarDrawerToggle(this , mDrawerLayout , R.string.open , R.string.close);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -99,27 +102,27 @@ public class Pictures_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem){
-                switch (menuItem.getItemId()){
-                    case(R.id.nav_account):
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case (R.id.nav_account):
                         Intent accountActivity = new Intent(Pictures_Activity.this, Login_Activity.class);
                         startActivity(accountActivity);
                         break;
-                    case(R.id.nav_settings):
+                    case (R.id.nav_settings):
                         Intent settingsActivity = new Intent(Pictures_Activity.this, Settings_Activity.class);
                         startActivity(settingsActivity);
                         break;
-                    case(R.id.nav_progress):
+                    case (R.id.nav_progress):
                         Intent progressActivity = new Intent(Pictures_Activity.this, Progress_Activity.class);
                         startActivity(progressActivity);
                         break;
-                    case(R.id.nav_eat):
+                    case (R.id.nav_eat):
                         Intent eatActivity = new Intent(Pictures_Activity.this, Dynamic_Calories_Activity.class);
                         startActivity(eatActivity);
                         break;
-                    case(R.id.nav_logout):
+                    case (R.id.nav_logout):
                         Intent logoutActivity = new Intent(Pictures_Activity.this, Login_Activity.class);
                         startActivity(logoutActivity);
                         break;
@@ -132,32 +135,29 @@ public class Pictures_Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(mToggle.onOptionsItemSelected(item)) {
+        if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-}
 
+    ArrayList<String> f = new ArrayList<String>();// list of file paths
+    File[] listFile;
 
-/* ArrayList<String> f = new ArrayList<String>();// list of file paths
-File[] listFile;
+    public void getFromSdcard() {
+        File file = new File(android.os.Environment.getExternalStorageDirectory() + "/dcim/", "Fit_app");
 
-public void getFromSdcard()
-{
-    File file= new File(android.os.Environment.getExternalStorageDirectory(),"TMyFolder");
-
-        if (file.isDirectory())
-        {
+        if (file.isDirectory()) {
             listFile = file.listFiles();
 
 
-            for (int i = 0; i < listFile.length; i++)
-            {
+            for (int i = 0; i < listFile.length; i++) {
 
                 f.add(listFile[i].getAbsolutePath());
 
             }
         }
-}*/
+    }
+
+}

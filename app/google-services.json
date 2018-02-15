@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "3007133371",
+    "firebase_url": "https://fitapplication-30dfc.firebaseio.com",
+    "project_id": "fitapplication-30dfc",
+    "storage_bucket": "fitapplication-30dfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3007133371:android:c4e9bef25cb4849e",
+        "android_client_info": {
+          "package_name": "com.example.ivo.fit_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3007133371-tbid30a0stvb30o7b38j321lrp2bc7ma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW2B4JwewRRXEkp0IU0h3xo4SOcHLREuE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

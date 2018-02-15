@@ -6,6 +6,7 @@ package com.example.ivo.fit_app;
 
 public class User {
 
+    private Integer id;
     private String name;
     private String email;
     private String password;
@@ -30,6 +31,11 @@ public class User {
         this.age = age;
         this.activity = activity;
         this.goal = goal;
+    }
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
     public String getName() {
@@ -102,6 +108,10 @@ public class User {
 
     public void setGoal(String goal) {
         this.goal = goal;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }
 
