@@ -18,7 +18,7 @@ import retrofit2.http.Path;
 
 public interface UserLogin {
 
-    String ENDPOINT = "http://192.168.43.206:8080";
+    String ENDPOINT = "http://192.168.1.100:8080";
 
     @POST("/login")
     Call<ResponseBody> getAuthorization(@Body Login login);

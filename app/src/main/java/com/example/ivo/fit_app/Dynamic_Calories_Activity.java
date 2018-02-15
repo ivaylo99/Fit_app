@@ -96,10 +96,10 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 //String kilograms = etKg.getText().toString().trim();
               //  weight = Float.parseFloat(kilograms);
-                token = bundle.getString("token");
                 id = bundle.getString("id");
+                token = bundle.getString("token");
                 Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
-              //  request(weight,id,token);
+                request(id,token);
 
             }
         });
@@ -115,9 +115,10 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public  void request(float weight,String id, String token) {
+    public  void request(String id, String token) {
 
-    //    Measurments measurments = new Measurments(weight,id,token);
+        Measurments measurments = new Measurments(50);
+        
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
@@ -130,7 +131,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
                 .build();
 
         UserClient client = retrofit.create(UserClient.class);
-        Call<Measurments> userCall = client.addMeasurment(weight,id,token);
+        Call<Measurments> userCall = client.addMeasurment(measurments,token);
 
 
         userCall.enqueue(new Callback<Measurments>() {
