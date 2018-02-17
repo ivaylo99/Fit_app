@@ -71,12 +71,12 @@ public class Login_Activity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(UserLogin.ENDPOINT)
+                .baseUrl(UserLoginService.ENDPOINT)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        UserLogin client = retrofit.create(UserLogin.class);
+        UserLoginService client = retrofit.create(UserLoginService.class);
         Call<ResponseBody> userCall = client.getAuthorization(login);
 
 

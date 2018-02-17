@@ -18,18 +18,12 @@ import retrofit2.http.Path;
  * Created by Ivo on 2.2.2018 г..
  */
 
-public interface UserClient {
+public interface UserRegisterService {
 
-    String ENDPOINT = "http://192.168.1.100:8080/";
+    String ENDPOINT = "http://192.168.1.102:8080/";
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     @POST("users/sign-up")
     Call<User> createUser(@Body User user);
 
-    @GET("getUserIdFromToken")
-    Call<ResponseBody> getUserId(@Header("authorization") String token);
-
-    @Headers({"Accept: application/json", "Content-Type: application/json"})
-    @POST("users/{id}/measurements")
-    Call<Measurments> addMeasurment(@Body Measurments weight,@Path("id") String id,@Header("authorization") String token);
 }

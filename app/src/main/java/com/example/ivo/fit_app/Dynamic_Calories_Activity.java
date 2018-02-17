@@ -10,18 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,11 +26,10 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private EditText etKg;
+    private EditText etWeight,etBicep,etChest,etWaist,etHip,etThigh,etCalf;
     private Button btn;
-    private TextView tvDynamic;
-    private String id, token;
-    private float weight;
+    private String id, token , weight,biceps,thigh,calf,hip,chest,waist;
+    Bundle bundle;
 
 
 
@@ -44,11 +37,16 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_calories_);
-        etKg = (EditText) findViewById(R.id.etKg);
-        btn = (Button) findViewById(R.id.button2);
-        tvDynamic = (TextView) findViewById(R.id.tvDynamic);
+        etWeight = (EditText) findViewById(R.id.etWeight);
+        etBicep = (EditText) findViewById(R.id.etBicep);
+        etCalf = (EditText) findViewById(R.id.etCalf);
+        etChest = (EditText) findViewById(R.id.etChest);
+        etHip = (EditText) findViewById(R.id.etHip);
+        etThigh = (EditText) findViewById(R.id.etThigh);
+        etWaist = (EditText) findViewById(R.id.etWaist);
 
-        final Bundle bundle ;
+        btn = (Button) findViewById(R.id.btnDynamic);
+
         bundle = getIntent().getExtras();
 
 
@@ -94,9 +92,18 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String kilograms = etKg.getText().toString().trim();
-                Measurments measurments = new Measurments(Float.parseFloat(kilograms));
-              //  weight = Float.parseFloat(kilograms);
+                weight = etWeight.getText().toString().trim();
+                biceps = etBicep.getText().toString().trim();
+                calf = etCalf.getText().toString().trim();
+                chest = etChest.getText().toString().trim();
+                hip = etHip.getText().toString().trim();
+                thigh = etThigh.getText().toString().trim();
+                waist = etWeight.getText().toString().trim();
+
+
+                Measurments measurments = new Measurments(Float.parseFloat(weight),Float.parseFloat(biceps),Float.parseFloat(calf),
+                        Float.parseFloat(chest),Float.parseFloat(hip),Float.parseFloat(thigh),Float.parseFloat(waist));
+
                 id = bundle.getString("id");
                 token = bundle.getString("token");
                 Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
@@ -124,12 +131,12 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(UserClient.ENDPOINT)
+                .baseUrl(UserRegisterService.ENDPOINT)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        UserClient client = retrofit.create(UserClient.class);
+        AddMeasurementsService client = retrofit.create(AddMeasurementsService.class);
         Call<Measurments> userCall = client.addMeasurment(measurments,id,token);
 
 

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
@@ -176,12 +175,12 @@ public class User_Info_Activity extends AppCompatActivity {
                         .build();
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(UserClient.ENDPOINT)
+                        .baseUrl(UserRegisterService.ENDPOINT)
                         .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
-                UserClient client = retrofit.create(UserClient.class);
+                UserRegisterService client = retrofit.create(UserRegisterService.class);
                 Call<User> userCall = client.createUser(user);
 
 

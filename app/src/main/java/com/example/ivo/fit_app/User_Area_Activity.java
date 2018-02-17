@@ -26,6 +26,7 @@ public class User_Area_Activity extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     String token;
     Intent intention;
+    Bundle bundle;
 
 
     @Override
@@ -33,7 +34,6 @@ public class User_Area_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area_);
 
-        final Bundle bundle ;
         bundle = getIntent().getExtras();
         intention = new Intent(User_Area_Activity.this,Dynamic_Calories_Activity.class);
 
@@ -99,12 +99,12 @@ public class User_Area_Activity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(UserClient.ENDPOINT)
+                .baseUrl(UserRegisterService.ENDPOINT)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        UserClient client = retrofit.create(UserClient.class);
+        GetIdFromTokenService client = retrofit.create(GetIdFromTokenService.class);
         Call<ResponseBody> userCall = client.getUserId(token);
 
 

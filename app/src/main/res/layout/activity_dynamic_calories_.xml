@@ -8,6 +8,17 @@
     android:id="@+id/drawerlayout"
     android:background="@drawable/background4">
 
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="587dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,38 +27,127 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/etWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter weight (KG)"
+                android:inputType="textPersonName|numberDecimal"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Send Kilograms to Database" />
-
             <EditText
-                android:id="@+id/etKg"
+                android:id="@+id/etBicep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Kilograms"
+                android:hint="Enter biceps size"
                 android:textColor="@color/colorAccent"
                 android:inputType="textPersonName|numberDecimal" />
 
         </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tvDynamic"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/etCalf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter calf size"
+                android:textColor="@color/colorAccent"
+                android:inputType="textPersonName|numberDecimal" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/etHip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter hip size"
+                android:textColor="@color/colorAccent"
+                android:inputType="textPersonName|numberDecimal" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/etChest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter chest size"
+                android:textColor="@color/colorAccent"
+                android:inputType="textPersonName|numberDecimal" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/etThigh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter thigh size"
+                android:textColor="@color/colorAccent"
+                android:inputType="textPersonName|numberDecimal" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/etWaist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter waist size"
+                android:textColor="@color/colorAccent"
+                android:inputType="textPersonName|numberDecimal" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnDynamic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Your Kilos"
-            android:textAlignment="center"
-            android:textSize="24sp" />
+            android:text="Send" />
 
 
     </LinearLayout>
+
+    </ScrollView>
 
 
     <android.support.design.widget.NavigationView
