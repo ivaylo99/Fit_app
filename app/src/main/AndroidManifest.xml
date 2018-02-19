@@ -54,21 +54,20 @@
 
         <activity android:name=".User_Area_Activity4" />
         <activity android:name=".User_Area_Activity5" />
-        <activity android:name=".Pictures_Activity"></activity>
+        <activity android:name=".Pictures_Activity" />
 
-        <service
-            android:name=".firebaseServices.MyFirebaseInstanceIdService">
+        <service android:name=".firebaseServices.MyFirebaseInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".firebaseServices.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".firebaseServices.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+        <activity android:name=".Subscribe_Activity"></activity>
     </application>
 
 </manifest>

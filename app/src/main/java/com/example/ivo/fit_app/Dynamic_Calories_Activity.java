@@ -29,7 +29,6 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
     private EditText etWeight,etBicep,etChest,etWaist,etHip,etThigh,etCalf;
     private Button btn;
     private String id, token , weight,biceps,thigh,calf,hip,chest,waist;
-    Bundle bundle;
 
 
 
@@ -47,6 +46,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
 
         btn = (Button) findViewById(R.id.btnDynamic);
 
+        final Bundle bundle ;
         bundle = getIntent().getExtras();
 
 
@@ -103,7 +103,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
 
                 Measurments measurments = new Measurments(Float.parseFloat(weight),Float.parseFloat(biceps),Float.parseFloat(calf),
                         Float.parseFloat(chest),Float.parseFloat(hip),Float.parseFloat(thigh),Float.parseFloat(waist));
-
+                
                 id = bundle.getString("id");
                 token = bundle.getString("token");
                 Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();

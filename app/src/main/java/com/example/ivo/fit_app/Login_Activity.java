@@ -24,8 +24,6 @@ public class Login_Activity extends AppCompatActivity {
     private String username;
     private String password;
     private String token;
-    private String id;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +38,7 @@ public class Login_Activity extends AppCompatActivity {
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent register_intent = new Intent(Login_Activity.this, Register_Activity.class);
+                Intent register_intent = new Intent(Login_Activity.this, Subscribe_Activity.class);
                 Login_Activity.this.startActivity(register_intent);
             }
         });
@@ -51,18 +49,13 @@ public class Login_Activity extends AppCompatActivity {
                  username = etUsername.getText().toString();
                  password = etPassword.getText().toString();
                  request(username,password);
-
-               // intention.putExtra("id", id);
-
-
-
             }
         });
     }
 
 
 
-    public  void request(final String username, final String password) {
+    public void request(final String username, final String password) {
 
         Login login = new Login(username,password);
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -90,9 +83,6 @@ public class Login_Activity extends AppCompatActivity {
 
                     Login_Activity.this.startActivity(intention);
 
-                   // Toast.makeText(Login_Activity.this, token, Toast.LENGTH_SHORT).show();
-                    // todo display the data instead of just a toast
-                  //  requestGetId(username,password,token);
                 }
                 else {
                     Toast.makeText(Login_Activity.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
@@ -103,7 +93,6 @@ public class Login_Activity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(Login_Activity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
                 }
                 else {
                     Toast.makeText(Login_Activity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
@@ -112,11 +101,4 @@ public class Login_Activity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
-
-
 }
