@@ -14,14 +14,14 @@ public class User {
     private Integer height;
     private Integer weight;
     private Integer age;
-    private Integer activity;
+    private double activity;
     private String goal;
 
     public User(){
 
     }
 
-    public User(String name, String email, String password, String gender, Integer height, Integer weight, Integer age, Integer activity, String goal) {
+    public User(String name, String email, String password, String gender, Integer height, Integer weight, Integer age, double activity, String goal) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -94,11 +94,11 @@ public class User {
         this.age = age;
     }
 
-    public Integer getActivity() {
+    public double getActivity() {
         return activity;
     }
 
-    public void setActivity(Integer activity) {
+    public void setActivity(double activity) {
         this.activity = activity;
     }
 

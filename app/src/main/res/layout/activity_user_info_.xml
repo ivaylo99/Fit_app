@@ -60,15 +60,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:hint="@string/select_here"
-                android:textColorHint="#FFFFFF"
-                app:met_primaryColor="#000000"
-                app:met_floatingLabel="normal"
-                app:met_baseColor="@color/colorAccent"
-                app:met_floatingLabelTextColor="@color/colorAccent"
-                app:met_textColor="@color/colorAccent"
-                app:met_textColorHint="@color/colorAccent"
                 android:popupBackground="@color/colorAccent1"
-                />
+                android:textColorHint="#FFFFFF"
+                app:met_baseColor="@color/colorAccent"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelTextColor="@color/colorAccent"
+                app:met_primaryColor="#000000"
+                app:met_textColor="@color/colorAccent"
+                app:met_textColorHint="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/textView3"

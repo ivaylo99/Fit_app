@@ -36,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter weight (KG)"
                 android:inputType="textPersonName|numberDecimal"
-                android:textAlignment="center"
                 android:textColor="@color/colorAccent" />
 
         </android.support.design.widget.TextInputLayout>

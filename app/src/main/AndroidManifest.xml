@@ -52,8 +52,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".User_Area_Activity4" />
-        <activity android:name=".User_Area_Activity5" />
         <activity android:name=".Pictures_Activity" />
 
         <service android:name=".firebaseServices.MyFirebaseInstanceIdService">

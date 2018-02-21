@@ -6,7 +6,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -24,15 +29,65 @@ public class User_Area_Activity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    String token;
-    Intent intention;
-    Bundle bundle;
+    private String token;
+    private Intent intention;
+    private Bundle bundle;
+    private Integer meals = 5, calories = 2750;
+    private TextView tvHead;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_area_);
+            setContentView(R.layout.activity_user_area_);
+
+            tvHead = (TextView) findViewById(R.id.tvUaHead);
+            tvHead.setText("Your daily calories: " + calories);
+            tvHead.setBackgroundColor(0xAA000000);
+
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll_exampla);
+
+        // Add textview 1
+        for(Integer i = 0 ; i < meals ; i++ ) {
+            TextView textView1 = new TextView(this);
+            String str = i.toString();
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            layoutParams.gravity = Gravity.CENTER;
+            layoutParams.setMargins(0, 30, 0, 30); // (left, top, right, bottom)
+            textView1.setLayoutParams(layoutParams);
+            textView1.setText("Meal " + (i + 1));
+            textView1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView1.setBackgroundColor(0xAA000000); // hex color 0xAARRGGBB
+            textView1.setTextSize(24);
+
+            linearLayout.addView(textView1);
+
+            // Add textview 2
+            for(int l = 0 ; l < 3 ; l++) {
+
+                TextView textView2 = new TextView(this);
+                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                layoutParams.gravity = Gravity.CENTER;
+                textView2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                layoutParams.setMargins(0,50,0,30); // (left, top, right, bottom)
+                textView2.setLayoutParams(layoutParams1);
+                textView2.setText("food " + (l + 1) + "of Meal" + (i + 1));
+                textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                textView2.setBackgroundColor(0xAA000000); // hex color 0xAARRGGBB
+
+                linearLayout.addView(textView2);
+            }
+        }
+
+
 
         bundle = getIntent().getExtras();
         intention = new Intent(User_Area_Activity.this,Dynamic_Calories_Activity.class);
