@@ -170,7 +170,7 @@
 
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvNav"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_margin="2dp"
@@ -182,7 +182,7 @@
                 android:textSize="24sp"
                 app:layout_constraintHorizontal_bias="0.162"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@+id/textView5"
+                app:layout_constraintRight_toRightOf="@+id/tvNav"
                 app:layout_constraintTop_toBottomOf="@+id/etUsernameReg"
                 tools:layout_constraintLeft_creator="1"
                 tools:layout_constraintRight_creator="1"

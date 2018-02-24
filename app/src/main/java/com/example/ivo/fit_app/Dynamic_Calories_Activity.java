@@ -98,7 +98,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
                 chest = etChest.getText().toString().trim();
                 hip = etHip.getText().toString().trim();
                 thigh = etThigh.getText().toString().trim();
-                waist = etWeight.getText().toString().trim();
+                waist = etWaist.getText().toString().trim();
 
 
                 Measurments measurments = new Measurments(Float.parseFloat(weight),Float.parseFloat(biceps),Float.parseFloat(calf),
