@@ -1,7 +1,13 @@
 package com.example.ivo.fit_app;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.media.Image;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.OpenableColumns;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,26 +25,53 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class Pictures_Activity extends AppCompatActivity {
 
+    String path = Environment.getExternalStorageDirectory() + "/Pictures/Fit_app/";
+    File file = new File (path);
+
+    ArrayList<String> f = new ArrayList<String>();// list of file paths
+    File[] listFile;
+
 
     Button prev, next;
     ImageSwitcher imgSwitcher;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    Integer images[] = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
     int i = 0;
+    String name;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures_);
+      //  Ringtone r = RingtoneManager.getRingtone(this,uri);
+
+        if (file.isDirectory()) {
+            listFile = file.listFiles();
+
+            for (int i = 0; i < listFile.length; i++) {
+
+                f.add(listFile[i].getAbsolutePath());
+            }
+        }
+
+       // Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
+        final TextView tv = (TextView) findViewById(R.id.textView5);
+
+        Uri uri = Uri.fromFile(listFile[0]);
+
 
         imgSwitcher = (ImageSwitcher) findViewById(R.id.imgSwitcher);
 
@@ -71,14 +104,21 @@ public class Pictures_Activity extends AppCompatActivity {
         prev = (Button) findViewById(R.id.btnPicPrev);
         next = (Button) findViewById(R.id.btnPicNext);
 
-        imgSwitcher.setImageResource(images[0]);
+        name = listFile[0].getName();
+        name = name.substring(0,10);
+        tv.setText(name);
+
+        imgSwitcher.setImageURI(uri);
 
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (i > 0) {
                     i--;
-                    imgSwitcher.setImageResource(images[i]);
+                    imgSwitcher.setImageURI(Uri.fromFile(listFile[i]));
+                    name = listFile[i].getName();
+                    name = name.substring(0,10);
+                    tv.setText(name);
                 }
             }
         });
@@ -86,9 +126,12 @@ public class Pictures_Activity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (i < images.length - 1) {
+                if (i < listFile.length - 1) {
                     i++;
-                    imgSwitcher.setImageResource(images[i]);
+                    imgSwitcher.setImageURI(Uri.fromFile(listFile[i]));
+                    name = listFile[i].getName();
+                    name = name.substring(0,10);
+                    tv.setText(name);
                 }
             }
         });
@@ -102,6 +145,10 @@ public class Pictures_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
+        View hview = mNavigationView.getHeaderView(0);
+        TextView nav_user = (TextView)hview.findViewById(R.id.tvNav);
+        nav_user.setText("opala");
+
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -121,6 +168,7 @@ public class Pictures_Activity extends AppCompatActivity {
                     case (R.id.nav_eat):
                         Intent eatActivity = new Intent(Pictures_Activity.this, Dynamic_Calories_Activity.class);
                         startActivity(eatActivity);
+                        //User_Area_Activity word = new User_Area_Activity();
                         break;
                     case (R.id.nav_logout):
                         Intent logoutActivity = new Intent(Pictures_Activity.this, Login_Activity.class);
@@ -142,22 +190,6 @@ public class Pictures_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    ArrayList<String> f = new ArrayList<String>();// list of file paths
-    File[] listFile;
 
-    public void getFromSdcard() {
-        File file = new File(android.os.Environment.getExternalStorageDirectory() + "/dcim/", "Fit_app");
-
-        if (file.isDirectory()) {
-            listFile = file.listFiles();
-
-
-            for (int i = 0; i < listFile.length; i++) {
-
-                f.add(listFile[i].getAbsolutePath());
-
-            }
-        }
-    }
 
 }

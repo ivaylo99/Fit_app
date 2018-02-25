@@ -80,8 +80,8 @@ public class Progress_Activity  extends Activity {
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
+        String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HHmmss").format(new Date());
+        String imageFileName =  timeStamp + "_";
         File albumF = getAlbumDir();
         File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
         return imageF;
