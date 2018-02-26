@@ -1,6 +1,8 @@
 package com.example.ivo.fit_app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,11 +16,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,11 +33,11 @@ public class User_Area_Activity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private String token, username;
-    private Intent intention;
-    private Bundle bundle;
-    private Integer meals = 3, calories = 2750;
+    private String token, id, calories,username;
+    private Integer meals;
     private TextView tvHead;
+    String preferences = "MyPrefs";
+    SharedPreferences settings;
 
 
     @Override
@@ -48,28 +45,14 @@ public class User_Area_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area_);
 
+        settings = getSharedPreferences(preferences, Context.MODE_PRIVATE);
+
         tvHead = (TextView) findViewById(R.id.tvUaHead);
-        tvHead.setText("Your daily calories: " + calories);
         tvHead.setBackgroundColor(0xAA000000);
 
+        token = settings.getString("token", token);
 
-        // Add textview 1
-
-        bundle = getIntent().getExtras();
-        intention = new Intent(User_Area_Activity.this, Dynamic_Calories_Activity.class);
-
-        token = bundle.getString("token");
-        intention.putExtra("token", token);
-        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
-
-
-        requestGetId(token);
-
-        //  username = bundle.getString("username");
-        // TextView Header = (TextView) findViewById(R.id.tvNav);
-        // Header.setText(username);
-        // Toast.makeText(getApplicationContext(),token,Toast.LENGTH_SHORT).show();
-
+        getIdAndCalories(token);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -80,6 +63,12 @@ public class User_Area_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
+
+        View headerView = mNavigationView.getHeaderView(0);
+        TextView nav_user = (TextView) headerView.findViewById(R.id.tvNav);
+        username = settings.getString("username", username);
+        nav_user.setText("Hello, " + username);
+
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -97,7 +86,8 @@ public class User_Area_Activity extends AppCompatActivity {
                         startActivity(progressActivity);
                         break;
                     case (R.id.nav_eat):
-                        requestGetId(token);
+                        Intent DynamicCalActivity = new Intent(User_Area_Activity.this, Dynamic_Calories_Activity.class);
+                        startActivity(DynamicCalActivity);
                         break;
                     case (R.id.nav_logout):
                         Intent logoutActivity = new Intent(User_Area_Activity.this, Login_Activity.class);
@@ -120,22 +110,63 @@ public class User_Area_Activity extends AppCompatActivity {
     }
 
 
-    public void requestGetId(String token) {
+    public void getIdAndCalories(final String token) {
 
-        final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS)
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(GetIdFromTokenService.ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+        GetIdFromTokenService client = retrofit.create(GetIdFromTokenService.class);
+        Call<User> userCall = client.getUserId(token);
+
+        userCall.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+
+                    id = response.body().getId().toString();
+
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("id",id);
+                    editor.commit();
+
+                    calories = response.body().getCalories().toString();
+                    tvHead.setText("Your daily calories: " + calories);
+
+                    meals = response.body().getMeals();
+
+                    getMeals(token, meals, id);
+
+                } else {
+                    Toast.makeText(User_Area_Activity.this, "Cant get id", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(User_Area_Activity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                    // logging probably not necessary
+                } else {
+                    Toast.makeText(User_Area_Activity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+            }
+        });
+    }
+
+
+
+    public void getMeals(String token, final Integer meals, String id) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(GetMealsService.ENDPOINT)
-                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         GetMealsService client = retrofit.create(GetMealsService.class);
-        Call<List<Food>> userCall = client.getMeals(token);
-
+        Call<List<Food>> userCall = client.getMeals(id,token);
 
         userCall.enqueue(new Callback<List<Food>>() {
             @Override
@@ -143,16 +174,7 @@ public class User_Area_Activity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     List<Food> list = response.body();
-                    setLaylout(list);
-
-                    Toast.makeText(User_Area_Activity.this, "ai", Toast.LENGTH_LONG).show();
-                    // todo display the data instead of just a toast
-
-//
-                    //    intention.putExtra("id", id);
-
-                    //    User_Area_Activity.this.startActivity(intention);
-
+                    setLayout(list,meals);
 
                 } else {
                     Toast.makeText(User_Area_Activity.this, "Cant get id", Toast.LENGTH_SHORT).show();
@@ -173,8 +195,8 @@ public class User_Area_Activity extends AppCompatActivity {
     }
 
 
-    public void setLaylout(List<Food> list) {
-        
+    public void setLayout(List<Food> list , Integer meals) {
+
         Integer i = 0;
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll_exampla);
 
@@ -210,9 +232,14 @@ public class User_Area_Activity extends AppCompatActivity {
                     textView2.setText(list.get(l).getName() + "   " + list.get(l).getAmount());
                 }else if(i == 1) {
                     textView2.setText(list.get(l+3).getName() + "   " + list.get(l + 3).getAmount());
-                }else {
+                }else if(i == 2){
                     textView2.setText(list.get(l+6).getName() + "   " + list.get(l+6).getAmount());
+                }else if(i == 3){
+                    textView2.setText(list.get(l+9).getName() + "   " + list.get(l+9).getAmount());
+                }else {
+                    textView2.setText(list.get(l+12).getName() + "   " + list.get(l+12).getAmount());
                 }
+
                 textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 textView2.setBackgroundColor(0xAA000000); // hex color 0xAARRGGBB
 

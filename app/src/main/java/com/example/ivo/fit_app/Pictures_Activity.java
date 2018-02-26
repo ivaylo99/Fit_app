@@ -56,7 +56,6 @@ public class Pictures_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures_);
-      //  Ringtone r = RingtoneManager.getRingtone(this,uri);
 
         if (file.isDirectory()) {
             listFile = file.listFiles();
@@ -99,7 +98,6 @@ public class Pictures_Activity extends AppCompatActivity {
         animation.addAnimation(fadein);
         animation.addAnimation(fadeout);
         imgSwitcher.setAnimation(animation);
-
 
         prev = (Button) findViewById(R.id.btnPicPrev);
         next = (Button) findViewById(R.id.btnPicNext);
@@ -145,9 +143,6 @@ public class Pictures_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
-        View hview = mNavigationView.getHeaderView(0);
-        TextView nav_user = (TextView)hview.findViewById(R.id.tvNav);
-        nav_user.setText("opala");
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -166,8 +161,8 @@ public class Pictures_Activity extends AppCompatActivity {
                         startActivity(progressActivity);
                         break;
                     case (R.id.nav_eat):
-                        Intent eatActivity = new Intent(Pictures_Activity.this, Dynamic_Calories_Activity.class);
-                        startActivity(eatActivity);
+                        Intent DynamicCalActivity = new Intent(Pictures_Activity.this, Dynamic_Calories_Activity.class);
+                        startActivity(DynamicCalActivity);
                         //User_Area_Activity word = new User_Area_Activity();
                         break;
                     case (R.id.nav_logout):

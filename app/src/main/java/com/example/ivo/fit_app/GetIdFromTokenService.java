@@ -11,8 +11,8 @@ import retrofit2.http.Header;
 
 public interface GetIdFromTokenService {
 
-    String ENDPOINT = "http://192.168.1.102:8080/";
+    String ENDPOINT = "http://192.168.1.100:8080/";
 
     @GET("getUserIdFromToken")
-    Call<ResponseBody> getUserId(@Header("authorization") String token);
+    Call<User> getUserId(@Header("authorization") String token);
 }

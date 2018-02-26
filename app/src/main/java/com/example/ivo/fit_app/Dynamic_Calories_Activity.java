@@ -1,6 +1,8 @@
 package com.example.ivo.fit_app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,12 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,9 +29,9 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     private EditText etWeight,etBicep,etChest,etWaist,etHip,etThigh,etCalf;
     private Button btn;
-    private String id, token , weight,biceps,thigh,calf,hip,chest,waist;
-
-
+    private String username,id,token,weight,biceps,thigh,calf,hip,chest,waist;
+    String preferences = "MyPrefs";
+    SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
 
         btn = (Button) findViewById(R.id.btnDynamic);
 
-        final Bundle bundle ;
-        bundle = getIntent().getExtras();
-
+        settings = getSharedPreferences(preferences, Context.MODE_PRIVATE);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         mToggle = new ActionBarDrawerToggle(this , mDrawerLayout , R.string.open , R.string.close);
@@ -59,6 +58,12 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
+
+        View headerView = mNavigationView.getHeaderView(0);
+        TextView nav_user = (TextView) headerView.findViewById(R.id.tvNav);
+        username = settings.getString("username", username);
+        nav_user.setText("Hello, " + username);
+
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem){
@@ -76,8 +81,8 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
                         startActivity(progressActivity);
                         break;
                     case(R.id.nav_eat):
-                        Intent eatActivity = new Intent(Dynamic_Calories_Activity.this, Dynamic_Calories_Activity.class);
-                        startActivity(eatActivity);
+                        Intent DynamicCalActivity = new Intent(Dynamic_Calories_Activity.this, Dynamic_Calories_Activity.class);
+                        startActivity(DynamicCalActivity);
                         break;
                     case(R.id.nav_logout):
                         Intent logoutActivity = new Intent(Dynamic_Calories_Activity.this, Login_Activity.class);
@@ -101,13 +106,15 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
                 waist = etWaist.getText().toString().trim();
 
 
-                Measurments measurments = new Measurments(Float.parseFloat(weight),Float.parseFloat(biceps),Float.parseFloat(calf),
-                        Float.parseFloat(chest),Float.parseFloat(hip),Float.parseFloat(thigh),Float.parseFloat(waist));
-                
-                id = bundle.getString("id");
-                token = bundle.getString("token");
-                Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
-                request(measurments,id,token);
+                Measurements measurments = new Measurements(
+                        Float.parseFloat(weight),Float.parseFloat(biceps),Float.parseFloat(calf),
+                        Float.parseFloat(chest),Float.parseFloat(hip),Float.parseFloat(thigh),
+                        Float.parseFloat(waist));
+
+                token = settings.getString("token", token);
+                id = settings.getString("id", id);
+
+                addMeasurements(measurments,id,token);
 
             }
         });
@@ -123,37 +130,31 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public  void request(Measurments measurments, String id, String token) {
-
-        final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .build();
+    public  void addMeasurements(Measurements measurments, String id, String token) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UserRegisterService.ENDPOINT)
-                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         AddMeasurementsService client = retrofit.create(AddMeasurementsService.class);
-        Call<Measurments> userCall = client.addMeasurment(measurments,id,token);
+        Call<Measurements> userCall = client.addMeasurement(measurments,id,token);
 
 
-        userCall.enqueue(new Callback<Measurments>() {
+        userCall.enqueue(new Callback<Measurements>() {
             @Override
-            public void onResponse(Call<Measurments> call, Response<Measurments> response) {
+            public void onResponse(Call<Measurements> call, Response<Measurements> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(Dynamic_Calories_Activity.this, "success", Toast.LENGTH_SHORT).show();
                     // todo display the data instead of just a toast
                 }
                 else {
-                    Toast.makeText(Dynamic_Calories_Activity.this, "Wrong username or password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Dynamic_Calories_Activity.this, "Network problems", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Measurments> call, Throwable t) {
+            public void onFailure(Call<Measurements> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(Dynamic_Calories_Activity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
                     // logging probably not necessary

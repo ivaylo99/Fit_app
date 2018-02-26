@@ -4,7 +4,7 @@ package com.example.ivo.fit_app;
  * Created by Ivo on 13.2.2018 г..
  */
 
-public class Measurments {
+public class Measurements {
 
     private float weight;
     private float biceps;
@@ -15,7 +15,7 @@ public class Measurments {
     private float waist;
 
 
-    public Measurments(float weight, float biceps, float calf, float chest, float hip, float thigh, float waist) {
+    public Measurements(float weight, float biceps, float calf, float chest, float hip, float thigh, float waist) {
         this.weight = weight;
         this.biceps = biceps;
         this.calf = calf;
@@ -25,7 +25,7 @@ public class Measurments {
         this.waist = waist;
     }
 
-    public Measurments(float weight) {
+    public Measurements(float weight) {
         this.weight = weight;
     }
 

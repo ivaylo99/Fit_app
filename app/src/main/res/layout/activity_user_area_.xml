@@ -31,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="#000000"
-                android:text="Your daily calories: "
                 android:textAlignment="center"
                 android:textSize="24sp" />
         </LinearLayout>

@@ -43,7 +43,6 @@ public class Progress_Activity  extends Activity {
     private String mCurrentPhotoPath;
 
     private final int CAMERA_REQUEST_CODE = 1;
-    private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
 
     private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
