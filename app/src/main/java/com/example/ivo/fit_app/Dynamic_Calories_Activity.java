@@ -27,16 +27,23 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+
     private EditText etWeight,etBicep,etChest,etWaist,etHip,etThigh,etCalf;
+
     private Button btn;
+
     private String username,id,token,weight,biceps,thigh,calf,hip,chest,waist;
-    String preferences = "MyPrefs";
-    SharedPreferences settings;
+    private String preferences = "MyPrefs";
+
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_calories_);
+
+        settings = getSharedPreferences(preferences, Context.MODE_PRIVATE);
+
         etWeight = (EditText) findViewById(R.id.etWeight);
         etBicep = (EditText) findViewById(R.id.etBicep);
         etCalf = (EditText) findViewById(R.id.etCalf);
@@ -46,8 +53,6 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
         etWaist = (EditText) findViewById(R.id.etWaist);
 
         btn = (Button) findViewById(R.id.btnDynamic);
-
-        settings = getSharedPreferences(preferences, Context.MODE_PRIVATE);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         mToggle = new ActionBarDrawerToggle(this , mDrawerLayout , R.string.open , R.string.close);
@@ -69,12 +74,8 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem){
                 switch (menuItem.getItemId()){
                     case(R.id.nav_account):
-                        Intent accountActivity = new Intent(Dynamic_Calories_Activity.this, Login_Activity.class);
+                        Intent accountActivity = new Intent(Dynamic_Calories_Activity.this, User_Area_Activity.class);
                         startActivity(accountActivity);
-                        break;
-                    case(R.id.nav_settings):
-                        Intent settingsActivity = new Intent(Dynamic_Calories_Activity.this, Settings_Activity.class);
-                        startActivity(settingsActivity);
                         break;
                     case(R.id.nav_progress):
                         Intent progressActivity = new Intent(Dynamic_Calories_Activity.this, Progress_Activity.class);
@@ -105,8 +106,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
                 thigh = etThigh.getText().toString().trim();
                 waist = etWaist.getText().toString().trim();
 
-
-                Measurements measurments = new Measurements(
+                Measurements measurements = new Measurements(
                         Float.parseFloat(weight),Float.parseFloat(biceps),Float.parseFloat(calf),
                         Float.parseFloat(chest),Float.parseFloat(hip),Float.parseFloat(thigh),
                         Float.parseFloat(waist));
@@ -114,8 +114,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
                 token = settings.getString("token", token);
                 id = settings.getString("id", id);
 
-                addMeasurements(measurments,id,token);
-
+                addMeasurements(measurements,id,token);
             }
         });
     }
@@ -133,7 +132,7 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
     public  void addMeasurements(Measurements measurments, String id, String token) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(UserRegisterService.ENDPOINT)
+                .baseUrl(AddMeasurementsService.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -145,11 +144,10 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Measurements> call, Response<Measurements> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(Dynamic_Calories_Activity.this, "success", Toast.LENGTH_SHORT).show();
-                    // todo display the data instead of just a toast
+                    Toast.makeText(Dynamic_Calories_Activity.this, "Measurements successfully added", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(Dynamic_Calories_Activity.this, "Network problems", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Dynamic_Calories_Activity.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -157,11 +155,9 @@ public class Dynamic_Calories_Activity extends AppCompatActivity {
             public void onFailure(Call<Measurements> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(Dynamic_Calories_Activity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                    // logging probably not necessary
                 }
                 else {
                     Toast.makeText(Dynamic_Calories_Activity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                    // todo log to some central bug tracking service
                 }
             }
         });

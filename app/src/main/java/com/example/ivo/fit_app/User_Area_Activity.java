@@ -8,6 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -33,11 +37,15 @@ public class User_Area_Activity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private String token, id, calories,username;
+
     private Integer meals;
+
     private TextView tvHead;
-    String preferences = "MyPrefs";
-    SharedPreferences settings;
+
+    private String token, id, calories, username;
+    private String preferences = "MyPrefs";
+
+    private SharedPreferences settings;
 
 
     @Override
@@ -74,12 +82,8 @@ public class User_Area_Activity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case (R.id.nav_account):
-                        Intent accountActivity = new Intent(User_Area_Activity.this, Login_Activity.class);
+                        Intent accountActivity = new Intent(User_Area_Activity.this, User_Area_Activity.class);
                         startActivity(accountActivity);
-                        break;
-                    case (R.id.nav_settings):
-                        Intent settingsActivity = new Intent(User_Area_Activity.this, Settings_Activity.class);
-                        startActivity(settingsActivity);
                         break;
                     case (R.id.nav_progress):
                         Intent progressActivity = new Intent(User_Area_Activity.this, Progress_Activity.class);
@@ -128,7 +132,7 @@ public class User_Area_Activity extends AppCompatActivity {
                     id = response.body().getId().toString();
 
                     SharedPreferences.Editor editor = settings.edit();
-                    editor.putString("id",id);
+                    editor.putString("id", id);
                     editor.commit();
 
                     calories = response.body().getCalories().toString();
@@ -157,7 +161,6 @@ public class User_Area_Activity extends AppCompatActivity {
     }
 
 
-
     public void getMeals(String token, final Integer meals, String id) {
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -166,7 +169,7 @@ public class User_Area_Activity extends AppCompatActivity {
                 .build();
 
         GetMealsService client = retrofit.create(GetMealsService.class);
-        Call<List<Food>> userCall = client.getMeals(id,token);
+        Call<List<Food>> userCall = client.getMeals(id, token);
 
         userCall.enqueue(new Callback<List<Food>>() {
             @Override
@@ -174,7 +177,7 @@ public class User_Area_Activity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     List<Food> list = response.body();
-                    setLayout(list,meals);
+                    setLayout(list, meals);
 
                 } else {
                     Toast.makeText(User_Area_Activity.this, "Cant get id", Toast.LENGTH_SHORT).show();
@@ -195,10 +198,10 @@ public class User_Area_Activity extends AppCompatActivity {
     }
 
 
-    public void setLayout(List<Food> list , Integer meals) {
+    public void setLayout(List<Food> list, Integer meals) {
 
         Integer i = 0;
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll_exampla);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.DynamicLinearLayout);
 
         for (; i < meals; i++) {
             TextView textView1 = new TextView(this);
@@ -223,21 +226,22 @@ public class User_Area_Activity extends AppCompatActivity {
                 LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
+                String space = "    ";
 
                 layoutParams.gravity = Gravity.CENTER;
                 textView2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 layoutParams.setMargins(0, 50, 0, 30); // (left, top, right, bottom)
                 textView2.setLayoutParams(layoutParams1);
-                if(i == 0) {
-                    textView2.setText(list.get(l).getName() + "   " + list.get(l).getAmount());
-                }else if(i == 1) {
-                    textView2.setText(list.get(l+3).getName() + "   " + list.get(l + 3).getAmount());
-                }else if(i == 2){
-                    textView2.setText(list.get(l+6).getName() + "   " + list.get(l+6).getAmount());
-                }else if(i == 3){
-                    textView2.setText(list.get(l+9).getName() + "   " + list.get(l+9).getAmount());
-                }else {
-                    textView2.setText(list.get(l+12).getName() + "   " + list.get(l+12).getAmount());
+                if (i == 0) {
+                    textView2.setText(list.get(l).getName() + space + list.get(l).getAmount() + "  grams");
+                } else if (i == 1) {
+                    textView2.setText(list.get(l + 3).getName() + space + list.get(l + 3).getAmount() + " grams");
+                } else if (i == 2) {
+                    textView2.setText(list.get(l + 6).getName() + space + list.get(l + 6).getAmount() + " grams");
+                } else if (i == 3) {
+                    textView2.setText(list.get(l + 9).getName() + space + list.get(l + 9).getAmount() + " grams");
+                } else {
+                    textView2.setText(list.get(l + 12).getName() + space + list.get(l + 12).getAmount() + " grams");
                 }
 
                 textView2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);

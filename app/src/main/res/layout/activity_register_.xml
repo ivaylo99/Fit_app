@@ -108,9 +108,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
-            android:background="#4E535B"
+            android:background="@drawable/oval"
             android:padding="12dp"
-            android:text="Create Account" />
+            android:text="NEXT"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/bLoginReg"

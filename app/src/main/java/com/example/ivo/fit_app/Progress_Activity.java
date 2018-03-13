@@ -8,39 +8,43 @@ import java.util.List;
 
 import android.*;
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 
-public class Progress_Activity  extends Activity {
+public class Progress_Activity  extends AppCompatActivity {
 
     private static final int ACTION_TAKE_PHOTO_B = 1;
 
-    private static final String BITMAP_STORAGE_KEY = "viewbitmap";
-    private static final String IMAGEVIEW_VISIBILITY_STORAGE_KEY = "imageviewvisibility";
-    private ImageView mImageView;
-    private Bitmap mImageBitmap;
     private Button btnIntend1;
-    private String mCurrentPhotoPath;
+    private String mCurrentPhotoPath, username;
+
+    private String preferences = "MyPrefs";
+    private SharedPreferences settings;
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
 
     private final int CAMERA_REQUEST_CODE = 1;
     private static final String JPEG_FILE_SUFFIX = ".jpg";
@@ -69,17 +73,15 @@ public class Progress_Activity  extends Activity {
                     }
                 }
             }
-
         } else {
             Log.v(getString(R.string.app_name), "External storage is not mounted READ/WRITE.");
         }
-
         return storageDir;
     }
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd-HHmmss").format(new Date());
         String imageFileName =  timeStamp + "_";
         File albumF = getAlbumDir();
         File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
@@ -93,42 +95,6 @@ public class Progress_Activity  extends Activity {
 
         return f;
     }
-
-//    private void setPic() {
-//
-//		/* There isn't enough memory to open up more than a couple camera photos */
-//		/* So pre-scale the target bitmap into which the file is decoded */
-//
-//		/* Get the size of the ImageView */
-//        int targetW = mImageView.getWidth();
-//        int targetH = mImageView.getHeight();
-//
-//		/* Get the size of the image */
-//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-//        bmOptions.inJustDecodeBounds = true;
-//        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-//        int photoW = bmOptions.outWidth;
-//        int photoH = bmOptions.outHeight;
-//
-//		/* Figure out which way needs to be reduced less */
-//        int scaleFactor = 1;
-//        if ((targetW > 0) || (targetH > 0)) {
-//            scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-//        }
-//
-//		/* Set bitmap options to scale the image decode target */
-//        bmOptions.inJustDecodeBounds = false;
-//        bmOptions.inSampleSize = scaleFactor;
-//        bmOptions.inPurgeable = true;
-//
-//		/* Decode the JPEG file into a Bitmap */
-//        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-//
-//		/* Associate the Bitmap to the ImageView */
-//        mImageView.setImageBitmap(bitmap);
-//        mImageView.setVisibility(View.VISIBLE);
-//
-//    }
 
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
@@ -159,7 +125,7 @@ public class Progress_Activity  extends Activity {
 
             default:
                 break;
-        } // switch
+        }
 
         startActivityForResult(takePictureIntent, actionCode);
     }
@@ -167,7 +133,6 @@ public class Progress_Activity  extends Activity {
     private void handleBigCameraPhoto() {
 
         if (mCurrentPhotoPath != null) {
-           // setPic();
             galleryAddPic();
             mCurrentPhotoPath = null;
         }
@@ -176,7 +141,7 @@ public class Progress_Activity  extends Activity {
 
     private void askPermission(String permission,int requestCode) {
         if(ContextCompat.checkSelfPermission(this,permission)!=PackageManager.PERMISSION_GRANTED) {
-            // we dont have permission
+            // we don't have permission
             ActivityCompat.requestPermissions(this,new String[]{permission},requestCode);
         }else {
             // we have permission
@@ -212,8 +177,48 @@ public class Progress_Activity  extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress_);
 
-        mImageView = (ImageView) findViewById(R.id.imgViewPro);
-        mImageBitmap = null;
+        settings = getSharedPreferences(preferences, Context.MODE_PRIVATE);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
+
+        View headerView = mNavigationView.getHeaderView(0);
+        TextView nav_user = (TextView) headerView.findViewById(R.id.tvNav);
+        username = settings.getString("username", username);
+        nav_user.setText("Hello, " + username);
+
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case (R.id.nav_account):
+                        Intent accountActivity = new Intent(Progress_Activity.this, User_Area_Activity.class);
+                        startActivity(accountActivity);
+                        break;
+                    case (R.id.nav_progress):
+                        Intent progressActivity = new Intent(Progress_Activity.this, Progress_Activity.class);
+                        startActivity(progressActivity);
+                        break;
+                    case (R.id.nav_eat):
+                        Intent DynamicCalActivity = new Intent(Progress_Activity.this, Dynamic_Calories_Activity.class);
+                        startActivity(DynamicCalActivity);
+                        break;
+                    case (R.id.nav_logout):
+                        Intent logoutActivity = new Intent(Progress_Activity.this, Login_Activity.class);
+                        startActivity(logoutActivity);
+                        break;
+                }
+                return true;
+            }
+        });
+
 
         btnIntend1 = (Button) findViewById(R.id.btnPro1);
         btnIntend1.setOnClickListener(new View.OnClickListener() {
@@ -246,31 +251,8 @@ public class Progress_Activity  extends Activity {
                     handleBigCameraPhoto();
                 }
                 break;
-            } // ACTION_TAKE_PHOTO_B
-        } // switch
-    }
-
-    // Some lifecycle callbacks so that the image can survive orientation change
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(BITMAP_STORAGE_KEY, mImageBitmap);
-
-        outState.putBoolean(IMAGEVIEW_VISIBILITY_STORAGE_KEY, (mImageBitmap != null) );
-
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mImageBitmap = savedInstanceState.getParcelable(BITMAP_STORAGE_KEY);
-
-        mImageView.setImageBitmap(mImageBitmap);
-        mImageView.setVisibility(
-                savedInstanceState.getBoolean(IMAGEVIEW_VISIBILITY_STORAGE_KEY) ?
-                        ImageView.VISIBLE : ImageView.INVISIBLE
-        );
-
+            }
+        }
     }
 
     /**

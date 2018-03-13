@@ -8,7 +8,7 @@
     android:id="@+id/drawerlayout"
     android:background="@drawable/background4">
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -18,27 +18,46 @@
                 android:id="@+id/btnPro1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="465dp"
+                android:layout_below="@+id/textView6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="50dp"
                 android:layout_weight="1"
+                android:background="@drawable/oval"
                 android:elevation="0dp"
-                android:text="@string/btnIntend1" />
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="@string/btnIntend1"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnPro2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="42dp"
+                android:text="OR"
+                android:textSize="36sp" />
 
             <Button
                 android:id="@+id/btnPro2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="465dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="122dp"
                 android:layout_weight="1"
+                android:background="@drawable/oval"
                 android:elevation="0dp"
-                android:text="@string/btnIntend" />
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="@string/btnIntend"
+                android:textAlignment="center"
+                android:textSize="24sp" />
 
-        </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imgViewPro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible" />
+        </RelativeLayout>
 
 
     <android.support.design.widget.NavigationView

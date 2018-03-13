@@ -10,21 +10,22 @@ public class User {
     private String email;
     private String password;
     private String gender;
+    private String goal;
+
     private Integer height;
     private Integer weight;
     private Integer age;
-    private double activity;
-    private String goal;
-
     private Integer id;
-    private  Integer calories;
-    private  Integer meals;
+    private Integer calories;
+    private Integer meals;
 
-    public User(){
+    private double activity;
+
+    public User() {
 
     }
 
-    public User(String name, String email, String password, String gender, Integer height, Integer weight, Integer age, double activity, String goal) {
+    public User(String name, String email, String password, String gender, Integer height, Integer weight, Integer age, double activity, String goal, Integer meals) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -34,6 +35,7 @@ public class User {
         this.age = age;
         this.activity = activity;
         this.goal = goal;
+        this.meals = meals;
     }
 
     public User(String name, String password) {

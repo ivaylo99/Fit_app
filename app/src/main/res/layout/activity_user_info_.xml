@@ -36,6 +36,7 @@
                 android:layout_marginTop="110dp"
                 android:text="@string/tell_us_more_about_you"
                 android:textAlignment="center"
+                android:background="#000000"
                 android:textSize="25sp" />
 
             <TextView
@@ -280,17 +281,16 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="100dp"
                 android:layout_weight="1"
-                android:text="@string/next"
+                android:text="@string/register"
                 android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold|italic"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText9"
                 tools:layout_constraintLeft_creator="1"
                 tools:layout_constraintRight_creator="1"
                 tools:layout_constraintTop_creator="1"
-                android:background="#4E535B"/>
+                android:background="@drawable/oval"/>
 
         </LinearLayout>
     </ScrollView>

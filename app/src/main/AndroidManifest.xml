@@ -31,14 +31,12 @@
         <activity android:name=".Login_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Register_Activity" />
         <activity android:name=".User_Info_Activity" />
         <activity android:name=".User_Area_Activity" />
-        <activity android:name=".Settings_Activity" />
         <activity android:name=".Progress_Activity" />
         <activity android:name=".Dynamic_Calories_Activity" />
 
@@ -65,7 +63,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Subscribe_Activity"></activity>
     </application>
 
 </manifest>

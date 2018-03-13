@@ -3,7 +3,7 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="colorAccent1">#CC000000</color>
+    <color name="colorAccent1">#CC5e6063</color>
     <color name="editText">#FFFFFF</color>
     <color name="hint">#FFFFFF</color>
     <item name="visible" type="id"/>

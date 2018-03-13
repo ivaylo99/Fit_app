@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="80dp"
                 android:backgroundTint="@color/editText"
                 android:theme="@style/AppTheme"
                 android:visibility="visible">
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="24dp"
-                android:background="#4E535B"
+                android:background="@drawable/oval"
                 android:padding="12dp"
                 android:text="@string/login"
                 android:visibility="visible" />

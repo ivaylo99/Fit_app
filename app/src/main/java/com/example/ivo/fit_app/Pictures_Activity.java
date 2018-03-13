@@ -1,6 +1,8 @@
 package com.example.ivo.fit_app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.Image;
 import android.media.Ringtone;
@@ -37,40 +39,46 @@ import java.util.ArrayList;
 
 public class Pictures_Activity extends AppCompatActivity {
 
+    private Button prev, next;
+    private ImageSwitcher imgSwitcher;
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+
+    private Integer counter = 0;
+
+    private String name, username;
+    private String preferences = "MyPrefs";
+
+    private SharedPreferences settings;
+
+    private TextView dateView;
+
     String path = Environment.getExternalStorageDirectory() + "/Pictures/Fit_app/";
-    File file = new File (path);
+    File file = new File(path);
 
     ArrayList<String> f = new ArrayList<String>();// list of file paths
     File[] listFile;
-
-
-    Button prev, next;
-    ImageSwitcher imgSwitcher;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
-    int i = 0;
-    String name;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures_);
 
+        settings = getSharedPreferences(preferences, Context.MODE_PRIVATE);
+
         if (file.isDirectory()) {
             listFile = file.listFiles();
 
-            for (int i = 0; i < listFile.length; i++) {
+            for (int counter = 0; counter < listFile.length; counter++) {
 
-                f.add(listFile[i].getAbsolutePath());
+                f.add(listFile[counter].getAbsolutePath());
             }
         }
 
-       // Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
-        final TextView tv = (TextView) findViewById(R.id.textView5);
+        dateView = (TextView) findViewById(R.id.dateView);
 
         Uri uri = Uri.fromFile(listFile[0]);
-
 
         imgSwitcher = (ImageSwitcher) findViewById(R.id.imgSwitcher);
 
@@ -103,20 +111,18 @@ public class Pictures_Activity extends AppCompatActivity {
         next = (Button) findViewById(R.id.btnPicNext);
 
         name = listFile[0].getName();
-        name = name.substring(0,10);
-        tv.setText(name);
+        dateView.setText(formatName(name));
 
         imgSwitcher.setImageURI(uri);
 
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (i > 0) {
-                    i--;
-                    imgSwitcher.setImageURI(Uri.fromFile(listFile[i]));
-                    name = listFile[i].getName();
-                    name = name.substring(0,10);
-                    tv.setText(name);
+                if (counter > 0) {
+                    counter--;
+                    imgSwitcher.setImageURI(Uri.fromFile(listFile[counter]));
+                    name = listFile[counter].getName();
+                    dateView.setText(formatName(name));
                 }
             }
         });
@@ -124,12 +130,11 @@ public class Pictures_Activity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (i < listFile.length - 1) {
-                    i++;
-                    imgSwitcher.setImageURI(Uri.fromFile(listFile[i]));
-                    name = listFile[i].getName();
-                    name = name.substring(0,10);
-                    tv.setText(name);
+                if (counter < listFile.length - 1) {
+                    counter++;
+                    imgSwitcher.setImageURI(Uri.fromFile(listFile[counter]));
+                    name = listFile[counter].getName();
+                    dateView.setText(formatName(name));
                 }
             }
         });
@@ -144,17 +149,18 @@ public class Pictures_Activity extends AppCompatActivity {
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
 
+        View headerView = mNavigationView.getHeaderView(0);
+        TextView nav_user = (TextView) headerView.findViewById(R.id.tvNav);
+        username = settings.getString("username", username);
+        nav_user.setText("Hello, " + username);
+
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case (R.id.nav_account):
-                        Intent accountActivity = new Intent(Pictures_Activity.this, Login_Activity.class);
+                        Intent accountActivity = new Intent(Pictures_Activity.this, User_Area_Activity.class);
                         startActivity(accountActivity);
-                        break;
-                    case (R.id.nav_settings):
-                        Intent settingsActivity = new Intent(Pictures_Activity.this, Settings_Activity.class);
-                        startActivity(settingsActivity);
                         break;
                     case (R.id.nav_progress):
                         Intent progressActivity = new Intent(Pictures_Activity.this, Progress_Activity.class);
@@ -163,7 +169,6 @@ public class Pictures_Activity extends AppCompatActivity {
                     case (R.id.nav_eat):
                         Intent DynamicCalActivity = new Intent(Pictures_Activity.this, Dynamic_Calories_Activity.class);
                         startActivity(DynamicCalActivity);
-                        //User_Area_Activity word = new User_Area_Activity();
                         break;
                     case (R.id.nav_logout):
                         Intent logoutActivity = new Intent(Pictures_Activity.this, Login_Activity.class);
@@ -185,6 +190,9 @@ public class Pictures_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    private String formatName(String name) {
+        name = name.substring(0, 10);
+        return name;
+    }
 
 }

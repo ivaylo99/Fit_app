@@ -1,6 +1,8 @@
 package com.example.ivo.fit_app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,37 +25,58 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class User_Info_Activity extends AppCompatActivity {
 
-    MaterialBetterSpinner materialBetterSpinner1 ,materialBetterSpinner2 ,materialBetterSpinner3 ,materialBetterSpinner4 ,materialBetterSpinner5 ,materialBetterSpinner6 ,materialBetterSpinner7;
-    Button btn;
+    private MaterialBetterSpinner materialBetterSpinner1, materialBetterSpinner2, materialBetterSpinner3, materialBetterSpinner4, materialBetterSpinner5, materialBetterSpinner6, materialBetterSpinner7;
 
-    String[] s1 = new String[]{"Male", "Female"};
-    String[] s2 = new String[]{"Clean bulk", "Gain muscle, Lose fat"};
-    String[] s3 = new String[]{"No activity","3 workouts/week", "more than 3 workouts/week"};
-    String[] s4 = new String[]{"3 meals/day", "4 meals/day", "5 meals/day"};
-    String[] s5 = new String[]{"18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"};
-    String[] s6 = new String[]{"40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", "101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121", "122", "123", "124", "125", "126", "127", "128", "129", "130", "131", "132", "133", "134", "135", "136", "137", "138", "139", "140", "141", "142", "143", "144", "145", "146", "147", "148", "149", "150", "151", "152", "153", "154", "155", "156", "157", "158", "159", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "177", "178", "179", "180" };
-    String[] s7 = new String[]{"130", "131", "132", "133", "134", "135", "136", "137", "138", "139", "140", "141", "142", "143", "144", "145", "146", "147", "148", "149", "150", "151", "152", "153", "154", "155", "156", "157", "158", "159", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "177", "178", "179", "180", "181", "182", "183", "184", "185", "186", "187", "188", "189", "190", "191", "192", "193", "194", "195", "196", "197", "198", "199", "200", "201", "202", "203", "204", "205", "206", "207", "208", "209", "210", "211", "212", "213", "214", "215"};
-    Integer mealcount = 0;
+    private Button btn;
 
-    private String gender , goal;
-    private Integer weight, age, height, activity;
+    private String[] s1 = new String[]{"Male", "Female"};
+    private String[] s2 = new String[]{"Clean bulk", "Gain muscle, Lose fat"};
+    private String[] s3 = new String[]{"No activity", "3 workouts/week", "more than 3 workouts/week"};
+    private String[] s4 = new String[]{"3 meals/day", "4 meals/day", "5 meals/day"};
+    private String[] s5 = new String[83];
+    private String[] s6 = new String[141];
+    private String[] s7 = new String[86];
+
+    private Integer weight, age, height, mealcount = 3, check = 0, ageValue = 18, weightValue = 40, heightValue = 130, counter;
+
+    private double activity;
+
+    private String gender, goal, username, password, email;
+    private String preferences = "MyPrefs";
+
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_);
+
+        settings = getSharedPreferences(preferences, Context.MODE_PRIVATE);
+
+        for (counter = 0; counter < 83; counter++) {
+            s5[counter] = ageValue.toString();
+            ageValue++;
+        }
+
+        for (counter = 0; counter < 141; counter++) {
+            s6[counter] = weightValue.toString();
+            weightValue++;
+        }
+
+        for (int counter = 0; counter < 86; counter++) {
+            s7[counter] = heightValue.toString();
+            heightValue++;
+        }
+
         btn = (Button) findViewById(R.id.button);
 
-        final Bundle bundle ;
-        bundle = getIntent().getExtras();
-
-        materialBetterSpinner1 = (MaterialBetterSpinner)findViewById(R.id.spinner1);
-        materialBetterSpinner2 = (MaterialBetterSpinner)findViewById(R.id.spinner2);
-        materialBetterSpinner3 = (MaterialBetterSpinner)findViewById(R.id.spinner3);
-        materialBetterSpinner4 = (MaterialBetterSpinner)findViewById(R.id.spinner4);
-        materialBetterSpinner5 = (MaterialBetterSpinner)findViewById(R.id.spinner5);
-        materialBetterSpinner6 = (MaterialBetterSpinner)findViewById(R.id.spinner6);
-        materialBetterSpinner7 = (MaterialBetterSpinner)findViewById(R.id.spinner7);
+        materialBetterSpinner1 = (MaterialBetterSpinner) findViewById(R.id.spinner1);
+        materialBetterSpinner2 = (MaterialBetterSpinner) findViewById(R.id.spinner2);
+        materialBetterSpinner3 = (MaterialBetterSpinner) findViewById(R.id.spinner3);
+        materialBetterSpinner4 = (MaterialBetterSpinner) findViewById(R.id.spinner4);
+        materialBetterSpinner5 = (MaterialBetterSpinner) findViewById(R.id.spinner5);
+        materialBetterSpinner6 = (MaterialBetterSpinner) findViewById(R.id.spinner6);
+        materialBetterSpinner7 = (MaterialBetterSpinner) findViewById(R.id.spinner7);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(User_Info_Activity.this, android.R.layout.simple_dropdown_item_1line, s1);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(User_Info_Activity.this, android.R.layout.simple_dropdown_item_1line, s2);
@@ -63,7 +86,6 @@ public class User_Info_Activity extends AppCompatActivity {
         ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(User_Info_Activity.this, android.R.layout.simple_dropdown_item_1line, s6);
         ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(User_Info_Activity.this, android.R.layout.simple_dropdown_item_1line, s7);
 
-
         materialBetterSpinner1.setAdapter(adapter1);
         materialBetterSpinner2.setAdapter(adapter2);
         materialBetterSpinner3.setAdapter(adapter3);
@@ -71,7 +93,6 @@ public class User_Info_Activity extends AppCompatActivity {
         materialBetterSpinner5.setAdapter(adapter5);
         materialBetterSpinner6.setAdapter(adapter6);
         materialBetterSpinner7.setAdapter(adapter7);
-
 
         materialBetterSpinner1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -82,9 +103,8 @@ public class User_Info_Activity extends AppCompatActivity {
                     gender = "male";
                 }
                 if (mSelectedText1.equals("Female")) {
-                   gender = "female";
+                    gender = "female";
                 }
-
             }
         });
 
@@ -109,13 +129,13 @@ public class User_Info_Activity extends AppCompatActivity {
                 String mSelectedText3 = adapterView.getItemAtPosition(position).toString();
 
                 if (mSelectedText3.equals("No activity")) {
-                    activity = 1;
+                    activity = 1.2;
                 }
                 if (mSelectedText3.equals("3 workouts/week")) {
-                    activity = 2;
+                    activity = 1.3;
                 }
                 if (mSelectedText3.equals("more than 3 workouts/week")) {
-                    activity = 3;
+                    activity = 1.4;
                 }
 
             }
@@ -127,13 +147,13 @@ public class User_Info_Activity extends AppCompatActivity {
                 String mSelectedText4 = adapterView.getItemAtPosition(position).toString();
                 int mSelectedId = position;
                 if (mSelectedText4.equals("3 meals/day")) {
-                    mealcount = 1;
+                    mealcount = 3;
                 }
                 if (mSelectedText4.equals("4 meals/day")) {
-                    mealcount = 2;
+                    mealcount = 4;
                 }
                 if (mSelectedText4.equals("5 meals/day")) {
-                    mealcount = 3;
+                    mealcount = 5;
                 }
             }
         });
@@ -166,33 +186,32 @@ public class User_Info_Activity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // if(check == 0)
+                //   Toast.makeText(getApplicationContext(),"opaa",Toast.LENGTH_SHORT).show();
 
-                User user = new User(bundle.getString("username"),bundle.getString("email"),bundle.getString("password"),gender,height,weight,age,activity,goal);
+                username = settings.getString("username", username);
+                email = settings.getString("email", email);
+                password = settings.getString("password", password);
 
-                final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                        .readTimeout(120, TimeUnit.SECONDS)
-                        .connectTimeout(120, TimeUnit.SECONDS)
-                        .build();
+                User user = new User(username, email, password, gender, height, weight, age, activity, goal, mealcount);
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(UserRegisterService.ENDPOINT)
-                        .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
                 UserRegisterService client = retrofit.create(UserRegisterService.class);
                 Call<User> userCall = client.createUser(user);
 
-
                 userCall.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(User_Info_Activity.this, "server returned data", Toast.LENGTH_SHORT).show();
-                            // todo display the data instead of just a toast
-                        }
-                        else {
-                            Toast.makeText(User_Info_Activity.this, "Server returned an error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(User_Info_Activity.this, "Successfully registered", Toast.LENGTH_SHORT).show();
+                            Intent login_intent = new Intent(User_Info_Activity.this, Login_Activity.class);
+                            User_Info_Activity.this.startActivity(login_intent);
+                        } else {
+                            Toast.makeText(User_Info_Activity.this, "Unsuccessfull registration", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -200,35 +219,14 @@ public class User_Info_Activity extends AppCompatActivity {
                     public void onFailure(Call<User> call, Throwable t) {
                         if (t instanceof IOException) {
                             Toast.makeText(User_Info_Activity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                            // logging probably not necessary
-                        }
-                        else {
+                        } else {
                             Toast.makeText(User_Info_Activity.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-                            // todo log to some central bug tracking service
                         }
                     }
                 });
-
-                if (mealcount == 1) {
-                        Intent login_intent1 = new Intent(User_Info_Activity.this, User_Area_Activity.class);
-                        User_Info_Activity.this.startActivity(login_intent1);
-                }
-                if (mealcount == 2) {
-                    Intent login_intent1 = new Intent(User_Info_Activity.this, User_Area_Activity4.class);
-                    User_Info_Activity.this.startActivity(login_intent1);
-                }
-                if (mealcount == 3) {
-                    Intent login_intent1 = new Intent(User_Info_Activity.this, User_Area_Activity5.class);
-                    User_Info_Activity.this.startActivity(login_intent1);
-                }
-
-
             }
         });
-
     }//on create
-
-
 
 
 }

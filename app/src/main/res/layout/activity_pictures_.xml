@@ -21,15 +21,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="Prev" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/oval"
+            android:text="Prev"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnPicNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/imgSwitcher"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:text="Next" />
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/oval"
+            android:text="Next"
+            android:textSize="18sp" />
 
         <ImageSwitcher
             android:id="@+id/imgSwitcher"
@@ -41,14 +49,14 @@
         </ImageSwitcher>
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/dateView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/btnPicPrev"
             android:layout_alignBottom="@+id/btnPicPrev"
             android:layout_centerHorizontal="true"
             android:text="TextView"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
